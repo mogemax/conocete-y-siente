@@ -6,7 +6,7 @@ export function TextField({ label, hint, value, onChange, placeholder, rows = 4,
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label htmlFor={id} className={`font-bold ${labelClassName}`}>
+        <label htmlFor={id} className={`font-semibold ${labelClassName}`}>
           {label}
         </label>
       )}
@@ -23,7 +23,7 @@ export function TextField({ label, hint, value, onChange, placeholder, rows = 4,
         maxLength={800}
         aria-describedby={hint ? `${id}-hint` : undefined}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full resize-none rounded-2xl bg-card p-4 text-[1.0625rem] ring-1 ring-line transition-shadow placeholder:text-ink-faint focus:ring-2 focus:ring-clay focus:outline-none"
+        className="w-full resize-none rounded-[1.25rem] bg-card p-4 text-[1.0625rem] ring-1 ring-line transition-shadow placeholder:text-ink-faint focus:ring-2 focus:ring-accent focus:outline-none"
         {...rest}
       />
     </div>

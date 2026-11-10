@@ -17,7 +17,7 @@ export function Values() {
         placeholder={t.otherPlaceholder}
         aria-label={t.otherPlaceholder}
         maxLength={40}
-        className="min-h-12 rounded-2xl bg-card px-4 ring-1 ring-line placeholder:text-ink-faint focus:ring-2 focus:ring-clay focus:outline-none"
+        className="min-h-12 rounded-2xl bg-card px-4 ring-1 ring-line placeholder:text-ink-faint focus:ring-2 focus:ring-accent focus:outline-none"
       />
     </>
   )
@@ -38,7 +38,7 @@ export function Closing() {
   const t = M3.closing
   return (
     <>
-      <blockquote className="font-display text-[2rem] leading-tight font-black text-clay">“{t.title}”</blockquote>
+      <blockquote className="font-display text-[2rem] leading-tight font-semibold text-accent">“{t.title}”</blockquote>
       <p className="text-ink-soft">{t.body}</p>
     </>
   )

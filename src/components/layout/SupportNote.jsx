@@ -16,10 +16,10 @@ export function SupportNote() {
         {SUPPORT.link}
       </button>
       {open && (
-        <div className="reveal flex flex-col gap-2 rounded-2xl bg-sage-soft p-4 text-sage-ink">
-          <p className="font-display text-lg font-bold">{SUPPORT.title}</p>
+        <div className="reveal flex flex-col gap-2 rounded-2xl bg-leaf-soft p-4 text-leaf-ink">
+          <p className="font-display text-lg font-semibold">{SUPPORT.title}</p>
           <p>{SUPPORT.body}</p>
-          {SUPPORT.contact ? <p className="font-bold">{SUPPORT.contact}</p> : <Todo>{SUPPORT.contactTodo}</Todo>}
+          {SUPPORT.contact ? <p className="font-semibold">{SUPPORT.contact}</p> : <Todo>{SUPPORT.contactTodo}</Todo>}
         </div>
       )}
     </div>

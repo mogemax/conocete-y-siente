@@ -1,14 +1,17 @@
 import { useStore } from '../state/store'
 import { Heading } from '../components/ui/Heading'
 import { TextField } from '../components/ui/TextField'
-import { UI } from '../content'
+import { ModuleNumerals } from '../components/scenery/ModuleNumerals'
+import { MODULES, UI } from '../content'
 
-/** Pantalla de solo texto (intros y cierres de módulo). */
-export function TextScreen({ eyebrow, title, body, note = UI.autosave }) {
+/** Portada de módulo: numeral gigante con sus vecinos, título con acento y recordatorio de guardado. */
+export function ModuleIntro({ module, title, body }) {
+  const m = MODULES.find((x) => x.id === module)
   return (
     <>
-      <Heading eyebrow={eyebrow} title={title} body={body} />
-      {note && <p className="text-sm text-ink-faint">{note}</p>}
+      <ModuleNumerals n={m.n} />
+      <Heading title={title} body={body} />
+      <p className="text-sm text-ink-faint">{UI.autosave}</p>
     </>
   )
 }

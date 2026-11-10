@@ -2,7 +2,7 @@
 
 export const M4 = {
   intro: {
-    title: 'Hora de practicar',
+    title: 'Hora de *practicar*',
     body: 'Tres estaciones: un juego de situaciones de campus, personas que se conocen bien a sí mismas y testimonios de gente como tú.',
   },
 
@@ -10,7 +10,7 @@ export const M4 = {
     eyebrow: 'Situaciones de campus',
     counter: (round, attempt) => `Ronda ${round} de 3 · ${attempt === 'a' ? 'Primer intento' : 'Segundo intento'}`,
     secondIntro: 'Ahora una parecida. Aplica lo que acabas de ver.',
-    chosenLevel: (n, name) => `Tu respuesta refleja el nivel ${n} · ${name}`,
+    chosenLevel: 'Tu respuesta refleja el nivel',
     // Lectura amable de cada nivel (nunca "te equivocaste").
     levelReading: {
       1: 'Es muy normal querer protegerte cuando algo te pone nervioso.',

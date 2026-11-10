@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button'
 import { Scale } from '../components/ui/Scale'
 import { TextField } from '../components/ui/TextField'
 import { Todo } from '../components/ui/Todo'
-import { LEVEL_TONE } from '../components/ui/tones'
+import { LevelTicket } from '../components/ui/LevelTicket'
 import { BeforeAfterChart } from '../components/blocks/BeforeAfterChart'
 import { M5, PLAN_SUGGESTIONS, levelByN } from '../content'
 import { summarize, trend } from '../lib/scoring'
@@ -28,7 +28,7 @@ export function Comparison() {
     <>
       <Heading eyebrow={t.eyebrow} title={t.title} />
       <BeforeAfterChart rows={rows} beforeLabel={t.before} afterLabel={t.after} />
-      <p className="rounded-2xl bg-sage-soft p-5 font-bold text-sage-ink">{t.messages[trend(state.measures.pre, state.measures.post)]}</p>
+      <p className="glass relative z-10 rounded-3xl p-5 font-semibold text-ink">{t.messages[trend(state.measures.pre, state.measures.post)]}</p>
     </>
   )
 }
@@ -42,7 +42,7 @@ export function IfThen() {
       <div className="flex flex-col gap-4">
         <TextField
           label={t.ifLabel}
-          labelClassName="font-display text-2xl text-clay"
+          labelClassName="font-display text-2xl text-accent"
           placeholder={t.ifPlaceholder}
           value={state.ifThen.when}
           onChange={(v) => set(['ifThen', 'when'], v)}
@@ -50,7 +50,7 @@ export function IfThen() {
         />
         <TextField
           label={t.thenLabel}
-          labelClassName="font-display text-2xl text-clay"
+          labelClassName="font-display text-2xl text-accent"
           placeholder={t.thenPlaceholder}
           value={state.ifThen.then}
           onChange={(v) => set(['ifThen', 'then'], v)}
@@ -58,7 +58,7 @@ export function IfThen() {
         />
       </div>
       <details className="group rounded-2xl bg-paper-deep p-4">
-        <summary className="cursor-pointer font-bold">{t.examplesTitle}</summary>
+        <summary className="cursor-pointer font-semibold">{t.examplesTitle}</summary>
         <ul className="mt-3 flex flex-col gap-2 text-ink-soft">
           {t.examples.map((e) => (
             <li key={e}>{e}</li>
@@ -74,15 +74,13 @@ export function Plan() {
   const t = M5.plan
   const level = levelByN(finalLevel(state))
   const plan = state.plan ?? PLAN_SUGGESTIONS[level.n]
-  const tone = LEVEL_TONE[level.n]
   const update = (i, v) => set(['plan'], plan.map((w, j) => (j === i ? v : w)))
   return (
     <>
       <Heading title={t.title} body={t.body(`el nivel ${level.n} · ${level.name}`)} />
-      <section className={`flex flex-col gap-1 rounded-2xl p-5 ${tone.bg}`}>
-        <p className={`text-sm font-bold ${tone.ink}`}>{t.tipTitle}</p>
-        <p className="font-display text-lg font-bold">{level.tip}</p>
-      </section>
+      <LevelTicket label={t.tipTitle} n={level.n} name={level.name}>
+        <p className="font-semibold text-ink">{level.tip}</p>
+      </LevelTicket>
       <ol className="flex flex-col gap-4">
         {plan.map((week, i) => (
           <li key={i}>
@@ -129,15 +127,15 @@ export function Resources() {
         {t.items.map((r) => (
           <li key={r.title} className="flex flex-col gap-1.5 py-5 first:pt-0">
             {r.url ? (
-              <a href={r.url} target="_blank" rel="noreferrer" className="font-display text-lg font-bold text-clay underline decoration-clay/30 underline-offset-4">
+              <a href={r.url} target="_blank" rel="noreferrer" className="font-display text-lg font-semibold text-accent underline decoration-accent/30 underline-offset-4">
                 {r.title} ↗
               </a>
             ) : (
-              <p className="font-display text-lg font-bold">{r.title}</p>
+              <p className="font-display text-lg font-semibold">{r.title}</p>
             )}
-            <p className="text-sm font-bold text-ink-soft">{r.author}</p>
+            <p className="text-sm font-semibold text-ink-soft">{r.author}</p>
             <p className="text-ink-soft">{r.description}</p>
-            <p className="text-sm text-sage-ink">
+            <p className="text-sm text-leaf-ink">
               {t.levelLabel} {r.levels}
             </p>
             {!r.url && <Todo>{r.urlTodo}</Todo>}
@@ -163,7 +161,7 @@ export function Certificate({ goto }) {
           {missing.map((m) => (
             <li key={m.key} className="flex items-center justify-between gap-4 rounded-2xl bg-card p-4 ring-1 ring-line">
               <span>{t.missing[m.key]}</span>
-              <Button variant="secondary" className="min-h-11 shrink-0 px-4 text-base" onClick={() => goto(m.stepId)}>
+              <Button variant="secondary" size="sm" className="shrink-0" onClick={() => goto(m.stepId)}>
                 {t.goTo}
               </Button>
             </li>
@@ -184,7 +182,7 @@ export function Certificate({ goto }) {
     <>
       <Heading title={t.title} />
       <div className="flex flex-col gap-2">
-        <label htmlFor="cert-name" className="font-bold">
+        <label htmlFor="cert-name" className="font-semibold">
           {t.nameLabel}
         </label>
         <input
@@ -196,7 +194,7 @@ export function Certificate({ goto }) {
           }}
           maxLength={60}
           autoComplete="name"
-          className="min-h-14 rounded-2xl bg-card px-4 text-lg ring-1 ring-line focus:ring-2 focus:ring-clay focus:outline-none"
+          className="min-h-14 rounded-[1.25rem] bg-card px-4 text-lg ring-1 ring-line focus:ring-2 focus:ring-accent focus:outline-none"
         />
         <p className="text-sm text-ink-faint">{t.namePrivacy}</p>
       </div>
@@ -206,11 +204,11 @@ export function Certificate({ goto }) {
         </Button>
       ) : (
         <div className="reveal flex flex-col gap-4">
-          <img src={image} alt={`${t.image.kind}: ${state.name}`} className="w-full rounded-2xl shadow-[0_12px_40px_-12px_oklch(0.3_0.05_40/0.35)]" />
+          <img src={image} alt={`${t.image.kind}: ${state.name}`} className="w-full rounded-[1.75rem] shadow-[0_20px_50px_-24px_oklch(0.3_0.05_125/0.45)]" />
           <a
             href={image}
             download="constancia-conocete-y-siente.jpg"
-            className="inline-flex min-h-14 items-center justify-center rounded-2xl bg-clay text-lg font-bold text-card hover:bg-clay-deep"
+            className="inline-flex min-h-14 items-center justify-center rounded-full bg-accent text-lg font-semibold text-card hover:bg-accent-deep"
           >
             {t.download}
           </a>
@@ -239,7 +237,7 @@ export function Survey({ next }) {
     <>
       <Heading eyebrow={t.eyebrow} title={t.title} body={t.body} />
       <div className="flex flex-col gap-3">
-        <p id="usefulness" className="font-bold">
+        <p id="usefulness" className="font-semibold">
           {t.usefulness}
         </p>
         <Scale labelledBy="usefulness" value={s.usefulness} onChange={(n) => set(['survey', 'usefulness'], n)} min={t.usefulnessMin} max={t.usefulnessMax} />
@@ -258,17 +256,12 @@ export function Thanks({ goto }) {
   const t = M5.thanks
   return (
     <>
-      <div aria-hidden className="flex gap-2">
-        {[1, 2, 3, 4, 5].map((n) => (
-          <span key={n} className={`size-4 rounded-full ${LEVEL_TONE[n].bg}`} />
-        ))}
-      </div>
       <Heading title={t.title} body={t.body} />
       {t.community.url && (
-        <section className="flex flex-col gap-3 rounded-3xl bg-sage-soft p-6 text-sage-ink">
-          <h2 className="text-xl font-bold">{t.community.title}</h2>
+        <section className="flex flex-col gap-3 rounded-3xl bg-accent-soft p-6 text-leaf-ink">
+          <h2 className="text-2xl">{t.community.title}</h2>
           <p>{t.community.body}</p>
-          <a href={t.community.url} target="_blank" rel="noreferrer" className="inline-flex min-h-12 w-fit items-center rounded-2xl bg-sage px-5 font-bold text-card">
+          <a href={t.community.url} target="_blank" rel="noreferrer" className="inline-flex min-h-12 w-fit items-center rounded-full bg-accent px-6 font-semibold text-card">
             {t.community.cta}
           </a>
         </section>

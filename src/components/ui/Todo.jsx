@@ -4,8 +4,8 @@ import { SHOW_TODOS, UI } from '../../content'
 export function Todo({ children }) {
   if (!SHOW_TODOS || !children) return null
   return (
-    <p className="rounded-xl border border-dashed border-clay/50 bg-clay-soft/50 px-3 py-2 text-sm text-clay-deep">
-      <strong className="font-bold">{UI.todoLabel}:</strong> {children}
+    <p className="rounded-xl border border-dashed border-accent/50 bg-accent-soft/50 px-3 py-2 text-sm text-accent-deep">
+      <strong className="font-semibold">{UI.todoLabel}:</strong> {children}
     </p>
   )
 }

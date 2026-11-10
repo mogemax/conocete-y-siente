@@ -2,13 +2,13 @@
 
 export const M5 = {
   intro: {
-    title: 'Mide y comprométete',
+    title: 'Mide y *comprométete*',
     body: 'Vuelves a contestar lo del inicio, comparas, y te llevas un plan de 4 semanas y tu constancia.',
   },
 
   comparison: {
     eyebrow: 'Antes y después',
-    title: 'Mira cómo cambiaste',
+    title: 'Mira cómo *cambiaste*',
     before: 'Antes',
     after: 'Después',
     metrics: {
@@ -168,7 +168,7 @@ Si lo que te cuento suena a crisis o a mucho malestar, deja el plan y dime con c
   },
 
   thanks: {
-    title: 'Gracias por darte este tiempo.',
+    title: 'Gracias por darte este *tiempo.*',
     body: 'Conocerte es el primer paso. El siguiente es compartir algo tuyo con una persona esta semana.',
     community: {
       title: 'Únete a la comunidad',

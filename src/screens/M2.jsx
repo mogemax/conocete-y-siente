@@ -1,5 +1,6 @@
 import { useStore } from '../state/store'
 import { Heading } from '../components/ui/Heading'
+import { Pill } from '../components/ui/Pill'
 import { Choice } from '../components/ui/Choice'
 import { Todo } from '../components/ui/Todo'
 import { SwipeCards } from '../components/blocks/SwipeCards'
@@ -9,17 +10,17 @@ export function Lesson() {
   const t = M2.lesson
   return (
     <>
-      <p className="text-sm font-bold tracking-wide text-clay uppercase">{t.eyebrow}</p>
+      <Pill>{t.eyebrow}</Pill>
       <SwipeCards
         label="Micro-lección"
         hint={t.hint}
         items={t.cards}
         renderItem={(card, i) => (
           <article className="flex h-full min-h-72 flex-col gap-4 rounded-3xl bg-card p-6 ring-1 ring-line">
-            <span aria-hidden className="font-display text-5xl font-black text-clay-soft">
+            <span aria-hidden className="font-display text-5xl font-semibold text-accent-soft">
               {String(i + 1).padStart(2, '0')}
             </span>
-            <h2 className="text-2xl font-bold">{card.title}</h2>
+            <h2 className="text-2xl font-semibold">{card.title}</h2>
             <p className="text-ink-soft">{card.body}</p>
             {card.source && <p className="mt-auto text-sm text-ink-faint">{card.source}</p>}
           </article>
@@ -60,10 +61,10 @@ export function QuizStep({ index }) {
   const right = answer === q.correct
   return (
     <>
-      <p className="text-sm font-bold tracking-wide text-clay uppercase">
+      <Pill>
         {M2.quiz.eyebrow} · {M2.quiz.counter(index + 1, M2.quiz.questions.length)}
-      </p>
-      <h1 id={q.id} className="text-[1.6rem] font-bold">
+      </Pill>
+      <h1 id={q.id} className="text-[1.6rem] font-semibold">
         {q.question}
       </h1>
       <Choice
@@ -76,7 +77,7 @@ export function QuizStep({ index }) {
       {answered && (
         <p
           role="status"
-          className={`reveal rounded-2xl p-4 font-bold ${right ? 'bg-sage-soft text-sage-ink' : 'bg-l4 text-l4-ink'}`}
+          className={`reveal rounded-2xl p-4 font-semibold ${right ? 'bg-leaf-soft text-leaf-ink' : 'bg-l4 text-l4-ink'}`}
         >
           {right ? q.right : q.retry}
         </p>

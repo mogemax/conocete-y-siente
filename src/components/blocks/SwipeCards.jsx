@@ -41,7 +41,7 @@ export function SwipeCards({ items, renderItem, hint, label }) {
             >
               <span
                 className={`block h-2 rounded-full transition-[width,background-color] duration-300 ${
-                  i === active ? 'w-5 bg-clay' : 'w-2 bg-line'
+                  i === active ? 'w-5 bg-accent' : 'w-2 bg-line'
                 }`}
               />
             </button>

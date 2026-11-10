@@ -2,7 +2,7 @@
 
 export const M2 = {
   intro: {
-    title: '¿Qué es eso de conocerte?',
+    title: '¿Qué es eso de *conocerte?*',
     body: 'Cuatro tarjetas cortas, un video opcional y tres preguntas rápidas para comprobar que quedó claro.',
   },
   lesson: {

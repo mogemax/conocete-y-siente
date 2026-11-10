@@ -13,8 +13,8 @@ export function Scale({ value, onChange, min, max, labelledBy }) {
               aria-checked={selected}
               aria-label={`${n}${n === 1 ? ` (${min})` : n === 5 ? ` (${max})` : ''}`}
               onClick={() => onChange(n)}
-              className={`aspect-square rounded-2xl font-display text-2xl font-bold ring-1 transition-[transform,background-color,color] duration-200 ease-out active:scale-95 ${
-                selected ? 'bg-clay text-card ring-clay' : 'bg-card text-ink ring-line hover:ring-ink-faint'
+              className={`aspect-square rounded-[1.1rem] font-display text-2xl font-semibold ring-1 transition-[transform,background-color,color] duration-200 ease-out active:scale-95 ${
+                selected ? 'bg-accent text-card ring-accent' : 'bg-card text-ink ring-line hover:ring-ink-faint'
               }`}
             >
               {n}

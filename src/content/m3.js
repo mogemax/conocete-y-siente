@@ -2,7 +2,7 @@
 
 export const M3 = {
   intro: {
-    title: 'Tu mapa personal',
+    title: 'Tu mapa *personal*',
     body: 'Cuatro preguntas para ubicar qué te incomoda, qué sientes y qué te hace sentir bien. Escribe lo que salga; nadie más lo va a leer.',
   },
   map: [

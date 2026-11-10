@@ -3,7 +3,7 @@
 export const M1 = {
   welcome: {
     eyebrow: 'Conócete y siente',
-    title: 'Si sientes que todos ya tienen su grupo, no eres el único.',
+    title: 'Si sientes que todos ya tienen su grupo, no eres el *único.*',
     body: [
       'Empezar la uni cuando los grupitos ya se formaron cuesta, y le pasa a mucha más gente de la que crees.',
       // Paráfrasis de la idea de Brené Brown (no es cita literal).
@@ -14,7 +14,7 @@ export const M1 = {
     readFirst: '¿Prefieres leer primero a otros como tú?',
   },
   consent: {
-    title: 'Antes de empezar',
+    title: 'Antes de *empezar*',
     body: 'Tus respuestas escritas se quedan en tu celular. Solo enviamos números anónimos (sin nombre) para mejorar la experiencia.',
     adult: 'Soy mayor de edad y quiero participar.',
     participantQuestion: '¿Cómo llegaste aquí?',

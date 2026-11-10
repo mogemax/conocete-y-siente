@@ -7,9 +7,9 @@ import { MODULES, UI } from '../../content'
 export function ProgressHeader({ moduleId, fractionByModule }) {
   const current = MODULES.find((m) => m.id === moduleId)
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className="relative z-10 flex flex-col gap-2.5">
       <div className="flex items-baseline justify-between gap-3 text-sm">
-        <p className="font-bold text-ink">
+        <p className="font-semibold text-ink">
           <span className="text-ink-soft">{UI.moduleOf(current.n, MODULES.length)} · </span>
           {current.title}
         </p>
@@ -19,12 +19,12 @@ export function ProgressHeader({ moduleId, fractionByModule }) {
         {MODULES.map((m) => (
           <div
             key={m.id}
-            className="h-2 overflow-hidden rounded-full bg-line"
+            className="h-1.5 overflow-hidden rounded-full bg-line"
             style={{ flexGrow: m.minutes, flexBasis: 0 }}
           >
             <div
               className={`h-full origin-left rounded-full transition-transform duration-700 ease-[var(--ease-out-quart)] ${
-                m.id === moduleId ? 'bg-clay' : 'bg-sage'
+                m.id === moduleId ? 'bg-accent' : 'bg-lime'
               }`}
               style={{ transform: `scaleX(${fractionByModule[m.id] ?? 0})` }}
             />

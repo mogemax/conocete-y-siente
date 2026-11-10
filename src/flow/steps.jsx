@@ -2,9 +2,11 @@
 // Cada paso: { id, module, render({ next, goto }), required?(state), isEmpty?(state), nextLabel?, final? }
 // - required: bloquea "Siguiente" hasta cumplirse y muestra la etiqueta "Necesaria para tu constancia".
 // - isEmpty: en pasos opcionales cambia el botón a "Saltar por ahora".
+// - scenery: 'hero' | 'valley' | 'meadow' pone el paisaje del módulo al pie (ver SceneryBand).
 
 import { M1, M2, M3, M4, M5, STATEMENTS, MEASUREMENT_SITUATIONS } from '../content'
-import { TextScreen, FieldScreen } from '../screens/Common'
+import { FieldScreen, ModuleIntro } from '../screens/Common'
+import { plainText } from '../components/ui/Accent'
 import { Welcome, Consent, Agreements, Checkin } from '../screens/M1'
 import { LevelStep, StatementStep, SituationStep, ResultStep } from '../screens/Instrument'
 import { Lesson, Video, QuizStep } from '../screens/M2'
@@ -46,7 +48,7 @@ function instrumentSteps(module, phase, prefix) {
 
 export const STEPS = [
   // ── Módulo 1 · Enganche ──
-  { id: 'bienvenida', module: 'm1', nextLabel: M1.welcome.cta, render: () => <Welcome /> },
+  { id: 'bienvenida', module: 'm1', scenery: 'hero', nextLabel: M1.welcome.cta, render: () => <Welcome /> },
   {
     id: 'consentimiento',
     module: 'm1',
@@ -63,7 +65,7 @@ export const STEPS = [
   ...instrumentSteps('m1', 'pre', 'antes'),
 
   // ── Módulo 2 · Qué es ──
-  { id: 'm2-intro', module: 'm2', render: () => <TextScreen title={M2.intro.title} body={M2.intro.body} /> },
+  { id: 'm2-intro', module: 'm2', scenery: 'valley', render: () => <ModuleIntro module="m2" {...M2.intro} /> },
   { id: 'm2-leccion', module: 'm2', render: () => <Lesson /> },
   { id: 'm2-video', module: 'm2', render: () => <Video /> },
   ...M2.quiz.questions.map((q, i) => ({
@@ -74,13 +76,13 @@ export const STEPS = [
   })),
 
   // ── Módulo 3 · Identifícala ──
-  { id: 'm3-intro', module: 'm3', render: () => <TextScreen title={M3.intro.title} body={M3.intro.body} /> },
+  { id: 'm3-intro', module: 'm3', scenery: 'valley', render: () => <ModuleIntro module="m3" {...M3.intro} /> },
   ...M3.map.map((field, i) => ({
     id: `m3-mapa-${i + 1}`,
     module: 'm3',
     isEmpty: (s) => blank(s.map[field.key]),
     render: () => (
-      <FieldScreen eyebrow={`${M3.intro.title} · ${i + 1} de ${M3.map.length}`} title={field.title} hint={field.hint} path={['map', field.key]} />
+      <FieldScreen eyebrow={`${plainText(M3.intro.title)} · ${i + 1} de ${M3.map.length}`} title={field.title} hint={field.hint} path={['map', field.key]} />
     ),
   })),
   { id: 'm3-valores', module: 'm3', isEmpty: (s) => !s.values.length && blank(s.valueOther), render: () => <Values /> },
@@ -88,7 +90,7 @@ export const STEPS = [
   { id: 'm3-cierre', module: 'm3', render: () => <Closing /> },
 
   // ── Módulo 4 · Desarróllala jugando ──
-  { id: 'm4-intro', module: 'm4', render: () => <TextScreen title={M4.intro.title} body={M4.intro.body} /> },
+  { id: 'm4-intro', module: 'm4', scenery: 'valley', render: () => <ModuleIntro module="m4" {...M4.intro} /> },
   ...M4.game.rounds.flatMap((round, r) =>
     ['a', 'b'].map((attempt) => ({
       id: `m4-juego-${r + 1}${attempt}`,
@@ -106,11 +108,12 @@ export const STEPS = [
   { id: 'm4-testimonios', module: 'm4', render: () => <Testimonials /> },
 
   // ── Módulo 5 · Mide y comprométete ──
-  { id: 'm5-intro', module: 'm5', render: () => <TextScreen title={M5.intro.title} body={M5.intro.body} /> },
+  { id: 'm5-intro', module: 'm5', scenery: 'valley', render: () => <ModuleIntro module="m5" {...M5.intro} /> },
   ...instrumentSteps('m5', 'post', 'despues'),
   {
     id: 'm5-comparacion',
     module: 'm5',
+    scenery: 'meadow',
     render: () => <Comparison />,
   },
   {
@@ -135,7 +138,7 @@ export const STEPS = [
     isEmpty: (s) => !s.sent.opinion,
     render: ({ next }) => <Survey next={next} />,
   },
-  { id: 'gracias', module: 'm5', final: true, render: ({ goto }) => <Thanks goto={goto} /> },
+  { id: 'gracias', module: 'm5', final: true, scenery: 'hero', render: ({ goto }) => <Thanks goto={goto} /> },
 ]
 
 export const indexOfStep = (id) => STEPS.findIndex((s) => s.id === id)

@@ -7,7 +7,7 @@ const TONES = {
   nervios: 'bg-l4 text-l4-ink',
   miedo: 'bg-l2 text-l2-ink',
   tristeza: 'bg-l1 text-l1-ink',
-  enojo: 'bg-clay-soft text-clay-deep',
+  enojo: 'bg-accent-soft text-accent-deep',
 }
 
 /** Rueda de emociones: 7 emociones alrededor y "Otra" al centro. */
@@ -32,8 +32,8 @@ export function EmotionWheel({ emotions, value, onChange, otherLabel, otherPlace
               aria-checked={selected}
               onClick={() => onChange(e.key)}
               style={{ left: `${50 + 37 * Math.cos(angle)}%`, top: `${50 + 37 * Math.sin(angle)}%` }}
-              className={`absolute grid aspect-square w-[25%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full text-[0.8rem] leading-tight font-bold transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-expo)] ${TONES[e.key]} ${
-                selected ? 'scale-[1.14] shadow-[0_0_0_3px_var(--color-paper),0_0_0_6px_var(--color-clay)]' : 'hover:scale-105'
+              className={`absolute grid aspect-square w-[25%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full text-[0.8rem] leading-tight font-semibold transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-expo)] ${TONES[e.key]} ${
+                selected ? 'scale-[1.14] shadow-[0_0_0_3px_var(--color-paper),0_0_0_6px_var(--color-accent)]' : 'hover:scale-105'
               }`}
             >
               {e.label}
@@ -45,7 +45,7 @@ export function EmotionWheel({ emotions, value, onChange, otherLabel, otherPlace
           role="radio"
           aria-checked={value === 'otra'}
           onClick={selectOther}
-          className={`absolute top-1/2 left-1/2 grid aspect-square w-[24%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full font-bold ring-1 transition-[transform,background-color] duration-300 ${
+          className={`absolute top-1/2 left-1/2 grid aspect-square w-[24%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full font-semibold ring-1 transition-[transform,background-color] duration-300 ${
             value === 'otra' ? 'bg-ink text-card ring-ink' : 'bg-card text-ink ring-line hover:scale-105'
           }`}
         >
@@ -60,7 +60,7 @@ export function EmotionWheel({ emotions, value, onChange, otherLabel, otherPlace
           placeholder={otherPlaceholder}
           maxLength={60}
           aria-label={otherPlaceholder}
-          className="reveal min-h-12 w-full rounded-2xl bg-card px-4 ring-1 ring-line focus:ring-2 focus:ring-clay focus:outline-none"
+          className="reveal min-h-12 w-full rounded-2xl bg-card px-4 ring-1 ring-line focus:ring-2 focus:ring-accent focus:outline-none"
         />
       )}
     </div>

@@ -16,15 +16,15 @@ export function Choice({ options, value, onChange, disabled = false, labelledBy 
             aria-checked={selected}
             disabled={disabled}
             onClick={() => onChange(opt.key)}
-            className={`group flex w-full items-start gap-4 rounded-2xl p-4 text-left ring-1 transition-[transform,background-color,box-shadow,opacity] duration-200 ease-out enabled:active:scale-[0.985] ${
+            className={`group flex w-full items-start gap-4 rounded-[1.25rem] p-4 text-left ring-1 transition-[transform,background-color,box-shadow,opacity] duration-200 ease-out enabled:active:scale-[0.985] ${
               selected
-                ? `ring-2 ring-clay ${opt.tone?.bg ?? 'bg-card'}`
+                ? `ring-2 ring-accent ${opt.tone?.bg ?? 'bg-card'} shadow-[0_8px_24px_-14px_oklch(0.36_0.09_125/0.5)]`
                 : `ring-line ${opt.tone?.bg ?? 'bg-card'} enabled:hover:ring-ink-faint`
             } ${dimmed ? 'opacity-45' : ''}`}
           >
             {opt.badge != null && (
               <span
-                className={`mt-0.5 grid size-9 shrink-0 place-items-center rounded-full font-display text-lg font-bold ${
+                className={`mt-0.5 grid size-9 shrink-0 place-items-center rounded-full font-display text-lg font-semibold ${
                   opt.tone ? `bg-card/70 ${opt.tone.ink}` : 'bg-paper-deep text-ink-soft'
                 }`}
               >
@@ -32,13 +32,13 @@ export function Choice({ options, value, onChange, disabled = false, labelledBy 
               </span>
             )}
             <span className="flex flex-1 flex-col gap-0.5">
-              <span className={`leading-snug ${opt.sub ? 'font-bold' : ''}`}>{opt.label}</span>
+              <span className={`leading-snug ${opt.sub ? 'font-display text-lg font-semibold' : ''}`}>{opt.label}</span>
               {opt.sub && <span className="text-[0.95rem] text-ink-soft">{opt.sub}</span>}
             </span>
             <span
               aria-hidden
               className={`mt-1 grid size-6 shrink-0 place-items-center rounded-full ring-2 transition-colors ${
-                selected ? 'bg-clay ring-clay' : 'ring-line'
+                selected ? 'bg-accent ring-accent' : 'ring-line'
               }`}
             >
               {selected && (

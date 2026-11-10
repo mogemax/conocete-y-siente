@@ -1,6 +1,6 @@
-// Colores validados con el validador de dataviz (CVD ΔE ≥ 20, contraste ≥ 3:1 sobre el papel).
-const BEFORE = '#647fc4'
-const AFTER = '#b4583a'
+// Colores validados con el validador de dataviz sobre #fbfcf7 (todas las revisiones PASS).
+const BEFORE = '#7e8cd0'
+const AFTER = '#4a5e12'
 
 /**
  * Antes/después en filas independientes: cada métrica tiene su propia escala (5, 5 y 4),
@@ -16,7 +16,7 @@ export function BeforeAfterChart({ rows, beforeLabel, afterLabel }) {
       </figcaption>
       {rows.map((r) => (
         <div key={r.label} className="flex flex-col gap-2">
-          <p className="font-bold">{r.label}</p>
+          <p className="font-semibold">{r.label}</p>
           <Bar value={r.before} max={r.max} color={BEFORE} label={beforeLabel} />
           <Bar value={r.after} max={r.max} color={AFTER} label={afterLabel} delay />
         </div>
@@ -63,7 +63,7 @@ function Bar({ value, max, color, label, delay = false }) {
           title={`${label}: ${value} de ${max}`}
         />
       </div>
-      <span className="w-14 shrink-0 text-right font-bold tabular-nums">
+      <span className="w-14 shrink-0 text-right font-semibold tabular-nums">
         {value ?? '–'}
         <span className="font-normal text-ink-faint">/{max}</span>
       </span>

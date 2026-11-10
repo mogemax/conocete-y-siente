@@ -15,8 +15,8 @@ export function Chips({ options, value, onChange, max }) {
             type="button"
             aria-pressed={on}
             onClick={() => toggle(opt)}
-            className={`min-h-12 rounded-full px-5 font-bold ring-1 transition-[transform,background-color,color] duration-200 ease-out active:scale-95 ${
-              on ? 'bg-sage text-card ring-sage' : 'bg-card text-ink ring-line hover:ring-ink-faint'
+            className={`min-h-12 rounded-full px-5 font-semibold ring-1 transition-[transform,background-color,color] duration-200 ease-out active:scale-95 ${
+              on ? 'bg-accent text-card ring-accent' : 'bg-card text-ink ring-line hover:ring-ink-faint'
             }`}
           >
             {opt}

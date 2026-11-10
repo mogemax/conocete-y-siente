@@ -13,7 +13,7 @@ export function ResetLink({ onReset }) {
   return (
     <div className="reveal flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
       <span className="text-ink-soft">{RESET.confirm}</span>
-      <button type="button" onClick={onReset} className="font-bold text-clay-deep underline underline-offset-4">
+      <button type="button" onClick={onReset} className="font-semibold text-accent-deep underline underline-offset-4">
         {RESET.yes}
       </button>
       <button type="button" onClick={() => setConfirming(false)} className="text-ink-soft underline underline-offset-4">

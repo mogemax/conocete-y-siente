@@ -18,6 +18,8 @@ Todo el texto vive en `src/content/`, un archivo por módulo:
 | `instrument.js` | Las 6 afirmaciones y las 3 situaciones de medición (antes y después) |
 | `m1.js` … `m5.js` | Contenido de cada módulo |
 
+En los títulos, encierra una palabra entre asteriscos para ponerla en itálica oliva: `'Mira cómo *cambiaste*'`.
+
 Busca `TODO(equipo)` para ver lo pendiente. Mientras `SHOW_TODOS = true` (en `ui.js`), los pendientes se ven en pantalla con la etiqueta "Pendiente".
 
 El **orden de las pantallas** está en `src/flow/steps.jsx`.
