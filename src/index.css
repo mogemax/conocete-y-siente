@@ -1,0 +1,142 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Zen Maru Gothic', ui-rounded, system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+
+  /* Papel y tinta (neutros teñidos hacia el barro, hue ~45-78) */
+  --color-paper: oklch(0.968 0.016 78);
+  --color-paper-deep: oklch(0.94 0.022 74);
+  --color-card: oklch(0.985 0.009 80);
+  --color-line: oklch(0.88 0.024 70);
+  --color-ink: oklch(0.31 0.045 42);
+  --color-ink-soft: oklch(0.47 0.035 48);
+  --color-ink-faint: oklch(0.6 0.03 55);
+
+  /* Barro (acento principal) y salvia (calma / logro) */
+  --color-clay: oklch(0.52 0.13 38);
+  --color-clay-deep: oklch(0.45 0.12 36);
+  --color-clay-soft: oklch(0.92 0.045 50);
+  --color-sage: oklch(0.55 0.07 150);
+  --color-sage-soft: oklch(0.93 0.035 150);
+  --color-sage-ink: oklch(0.38 0.06 150);
+
+  /* Niveles 1-5: fondo suave + tinta del mismo tono */
+  --color-l1: oklch(0.92 0.022 255);
+  --color-l1-ink: oklch(0.42 0.05 255);
+  --color-l2: oklch(0.92 0.03 300);
+  --color-l2-ink: oklch(0.42 0.07 300);
+  --color-l3: oklch(0.92 0.04 150);
+  --color-l3-ink: oklch(0.4 0.07 150);
+  --color-l4: oklch(0.92 0.045 55);
+  --color-l4-ink: oklch(0.45 0.1 45);
+  --color-l5: oklch(0.93 0.05 88);
+  --color-l5-ink: oklch(0.45 0.08 75);
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    min-height: 100dvh;
+    background: var(--color-paper);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    line-height: 1.2;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-clay);
+    outline-offset: 3px;
+    border-radius: 0.75rem;
+  }
+  ::selection {
+    background: var(--color-clay-soft);
+  }
+}
+
+/* Entrada de cada pantalla */
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.screen-in {
+  animation: screen-in 420ms var(--ease-out-quart) both;
+}
+.screen-in > * {
+  animation: screen-in 480ms var(--ease-out-quart) both;
+}
+.screen-in > :nth-child(2) { animation-delay: 50ms; }
+.screen-in > :nth-child(3) { animation-delay: 100ms; }
+.screen-in > :nth-child(4) { animation-delay: 150ms; }
+.screen-in > :nth-child(n + 5) { animation-delay: 200ms; }
+
+/* Retro que aparece debajo de una elección */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+.reveal {
+  animation: reveal 380ms var(--ease-out-expo) both;
+}
+
+/* Tarjetas deslizables con scroll-snap nativo */
+.snap-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 86%;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1.25rem;
+  padding-inline: 1.25rem;
+  margin-inline: -1.25rem;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.snap-row::-webkit-scrollbar {
+  display: none;
+}
+.snap-row > * {
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Barras de la comparación: crecen desde la izquierda */
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+.bar-grow {
+  animation: bar-grow 900ms var(--ease-out-quart) both;
+}
