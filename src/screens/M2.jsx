@@ -1,6 +1,7 @@
 import { useStore } from '../state/store'
 import { Heading } from '../components/ui/Heading'
 import { Pill } from '../components/ui/Pill'
+import { SidePanel } from '../components/layout/SidePanel'
 import { Choice } from '../components/ui/Choice'
 import { Todo } from '../components/ui/Todo'
 import { SwipeCards } from '../components/blocks/SwipeCards'
@@ -75,12 +76,14 @@ export function QuizStep({ index }) {
         onChange={(i) => set(['quiz', q.id], i)}
       />
       {answered && (
-        <p
-          role="status"
-          className={`reveal rounded-2xl p-4 font-semibold ${right ? 'bg-leaf-soft text-leaf-ink' : 'bg-l4 text-l4-ink'}`}
-        >
-          {right ? q.right : q.retry}
-        </p>
+        <SidePanel>
+          <p
+            role="status"
+            className={`reveal rounded-[1.25rem] p-4 font-semibold ${right ? 'bg-leaf-soft text-leaf-ink' : 'bg-l4 text-l4-ink'}`}
+          >
+            {right ? q.right : q.retry}
+          </p>
+        </SidePanel>
       )}
     </>
   )

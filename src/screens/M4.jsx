@@ -7,6 +7,7 @@ import { Todo } from '../components/ui/Todo'
 import { LevelTicket } from '../components/ui/LevelTicket'
 import { Landscape } from '../components/scenery/Landscape'
 import { Grain } from '../components/scenery/Grain'
+import { SidePanel } from '../components/layout/SidePanel'
 import { SwipeCards } from '../components/blocks/SwipeCards'
 import { M4, TARGET_LEVEL, levelByN } from '../content'
 
@@ -46,28 +47,31 @@ export function GameStep({ roundIndex, attempt }) {
 function Feedback({ level, sit, first }) {
   const info = levelByN(level)
   return (
-    <section role="status" className="reveal relative -mx-5 px-4 pt-32 pb-6">
-      <div aria-hidden className="absolute inset-0 overflow-hidden rounded-t-[2rem]">
-        <Landscape scene="mediodia" lake={false} seed={7 + level * 5} className="absolute inset-0" />
-        <Grain />
-      </div>
-      <div className="glass relative flex flex-col gap-4 rounded-[1.9rem] p-5">
-        {first != null && <ProgressMessage first={first} second={level} />}
-        <LevelTicket label={G.chosenLevel} n={level} name={info.name}>
-          <p className="text-ink">{G.levelReading[level]}</p>
-        </LevelTicket>
-        <div className="flex flex-col gap-3 px-1">
-          <div>
-            <p className="text-sm font-semibold text-leaf-ink">{G.level3Title}</p>
-            <p className="font-semibold">{sit.level3}</p>
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-ink-soft">{G.whyTitle}</p>
-            <p className="text-ink-soft">{sit.why}</p>
+    <SidePanel>
+      <section role="status" className="reveal relative -mx-5 px-4 pt-32 pb-6 lg:mx-0 lg:p-0">
+        {/* En celular la retro va sobre su propio paisaje; en lg+ el paisaje ya está de fondo. */}
+        <div aria-hidden className="absolute inset-0 overflow-hidden rounded-t-[2rem] lg:hidden">
+          <Landscape scene="mediodia" lake={false} seed={7 + level * 5} className="absolute inset-0" />
+          <Grain />
+        </div>
+        <div className="glass relative flex flex-col gap-4 rounded-[1.9rem] p-5">
+          {first != null && <ProgressMessage first={first} second={level} />}
+          <LevelTicket label={G.chosenLevel} n={level} name={info.name}>
+            <p className="text-ink">{G.levelReading[level]}</p>
+          </LevelTicket>
+          <div className="flex flex-col gap-3 rounded-[1.25rem] bg-card p-4">
+            <div>
+              <p className="text-sm font-semibold text-leaf-ink">{G.level3Title}</p>
+              <p className="font-semibold">{sit.level3}</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-ink-soft">{G.whyTitle}</p>
+              <p className="text-ink">{sit.why}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </SidePanel>
   )
 }
 

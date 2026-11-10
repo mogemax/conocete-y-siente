@@ -17,7 +17,7 @@ const BANDS = {
 export function SceneryBand({ kind, scene }) {
   const band = BANDS[kind]
   return (
-    <div aria-hidden className={`relative -mx-5 -mb-24 shrink-0 overflow-hidden ${band.height}`}>
+    <div aria-hidden className={`relative -mx-5 -mb-24 shrink-0 overflow-hidden lg:hidden ${band.height}`}>
       <Landscape scene={scene} {...band.landscape} className="absolute inset-0" />
       <Grain />
       <GlassTiles tiles={band.tiles} />

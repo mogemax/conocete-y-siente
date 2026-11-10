@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Escritorio con altura suficiente: la tarjeta mide lo que la ventana y el dock + pie quedan fijos.
+   En ventanas bajas (laptops con poca altura útil) la página se desplaza como en celular. */
+@custom-variant desk (@media (width >= 64rem) and (height >= 46rem));
+
 @theme {
   /* Archivo con eje de ancho: expandida para títulos, normal para texto. */
   --font-display: 'Archivo', system-ui, sans-serif;
@@ -49,9 +53,10 @@
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
+  /* Sin fondo propio: el de html basta y deja ver el paisaje de escritorio (z negativo). */
   body {
     min-height: 100dvh;
-    background: var(--color-paper);
+    display: flow-root; /* evita que el margen de la tarjeta (lg) colapse y sume scroll */
     font-size: 1.0625rem;
     line-height: 1.5;
   }
@@ -169,6 +174,17 @@
 }
 .reveal {
   animation: reveal 380ms var(--ease-out-expo) both;
+}
+
+/* Retro que sale de lado de la tarjeta (pantallas xl) */
+@keyframes side-in {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+}
+.side-in {
+  animation: side-in 360ms var(--ease-out-quart) both;
 }
 
 /* Tarjetas deslizables con scroll-snap nativo */

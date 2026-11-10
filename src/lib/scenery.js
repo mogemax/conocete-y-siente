@@ -63,21 +63,26 @@ function rock(x, y, k, t) {
   return `<path d="M${x} ${y}q${f1(8 * k)} -${f1(22 * k)} ${f1(30 * k)} -${f1(24 * k)}q${f1(22 * k)} -2 ${f1(30 * k)} ${f1(24 * k)}Z" fill="${t.rock}"/><path d="M${f1(x + 8 * k)} ${f1(y - 12 * k)}q${f1(10 * k)} -${f1(10 * k)} ${f1(22 * k)} -${f1(11 * k)}q-${f1(4 * k)} ${f1(6 * k)} -${f1(22 * k)} ${f1(11 * k)}Z" fill="${t.rockHi}"/>`
 }
 
-/**
- * Paisaje en capas (viewBox 390×300, anclado abajo):
- * cordillera lejana → cordillera facetada → lago → colinas → pradera → frente con pinos.
- */
-export function landscapeSvg(scene, { mountains = true, lake = true, seed = 7, width = '100%', height = '100%' } = {}) {
-  const t = SCENES[scene]
+/** Capas del paisaje (viewBox 390×300): cordillera lejana → facetada → lago → colinas → pradera → frente con pinos. */
+function layers(t, { mountains = true, lake = true, seed = 7 }) {
   const m = mountains
   const far = `<path d="M0 118L28 96L52 108L84 78L112 100L140 88L170 104L196 84L232 106L262 92L300 104L336 80L362 98L390 90V170H0Z" fill="${t.farA}" opacity=".55"/>`
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 300" width="${width}" height="${height}" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">${
-    m ? far + peaks([[48, 92, 58], [150, 74, 72], [250, 96, 56], [322, 58, 80]], t, 162) : ''
-  }${
+  return `${m ? far + peaks([[48, 92, 58], [150, 74, 72], [250, 96, 56], [322, 58, 80]], t, 162) : ''}${
     m && lake
       ? `<path d="M0 160H390V196H0Z" fill="${t.lake}"/><path d="M150 168h110M118 176h160M176 184h60" stroke="${t.lakeHi}" stroke-width="2.5" stroke-linecap="round" opacity=".85"/>`
       : ''
-  }<path d="M0 ${m ? 186 : 120}C60 ${m ? 170 : 104} 120 ${m ? 182 : 118} 170 ${m ? 192 : 128}C220 ${m ? 202 : 138} 270 ${m ? 180 : 112} 390 ${m ? 176 : 108}V300H0Z" fill="${t.hill}"/><path d="M0 214C70 194 150 224 230 210C300 198 350 202 390 194V300H0Z" fill="${t.meadow}"/>${flowers(t, seed, 218, 246, 24)}<path d="M0 242C80 228 150 258 250 248C320 242 360 236 390 230V300H0Z" fill="${t.near}"/>${rock(30, 268, 1.1, t)}${rock(296, 258, 0.85, t)}${pine(16, 236, 86, t)}${pine(48, 242, 60, t)}${pine(354, 228, 98, t)}${pine(382, 238, 64, t)}${flowers(t, seed + 3, 258, 298, 32)}</svg>`
+  }<path d="M0 ${m ? 186 : 120}C60 ${m ? 170 : 104} 120 ${m ? 182 : 118} 170 ${m ? 192 : 128}C220 ${m ? 202 : 138} 270 ${m ? 180 : 112} 390 ${m ? 176 : 108}V300H0Z" fill="${t.hill}"/><path d="M0 214C70 194 150 224 230 210C300 198 350 202 390 194V300H0Z" fill="${t.meadow}"/>${flowers(t, seed, 218, 246, 24)}<path d="M0 242C80 228 150 258 250 248C320 242 360 236 390 230V300H0Z" fill="${t.near}"/>${rock(30, 268, 1.1, t)}${rock(296, 258, 0.85, t)}${pine(16, 236, 86, t)}${pine(48, 242, 60, t)}${pine(354, 228, 98, t)}${pine(382, 238, 64, t)}${flowers(t, seed + 3, 258, 298, 32)}`
+}
+
+/** Paisaje en capas anclado abajo (se recorta a lo ancho para llenar su caja). */
+export function landscapeSvg(scene, { width = '100%', height = '100%', ...opts } = {}) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 300" width="${width}" height="${height}" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">${layers(SCENES[scene], opts)}</svg>`
+}
+
+/** Mosaico de 780×300 (paisaje + su espejo) que se repite en horizontal sin costura. */
+export function landscapeTileSvg(scene, opts = {}) {
+  const l = layers(SCENES[scene], opts)
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 300" width="780" height="300">${l}<g transform="matrix(-1 0 0 1 780 0)">${l}</g></svg>`
 }
 
 let cloudId = 0
