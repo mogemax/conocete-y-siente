@@ -55,6 +55,7 @@ export const M2 = {
       {
         id: 'q2',
         question: 'Tasha Eurich dice que conocerse tiene dos lados. ¿Cuáles son?',
+        source: 'Eurich, 2017',
         options: [
           'Mis calificaciones y mis amistades.',
           'Lo que me gusta y lo que no.',
@@ -67,6 +68,7 @@ export const M2 = {
       {
         id: 'q3',
         question: 'Según Bandura, ¿qué hace crecer la confianza en ti mismo?',
+        source: 'Bandura, 1977',
         options: [
           'Esperar a sentirte listo.',
           'Pequeñas experiencias de éxito, una tras otra.',

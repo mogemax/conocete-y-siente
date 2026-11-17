@@ -3,7 +3,7 @@ import { Heading } from '../components/ui/Heading'
 import { Pill } from '../components/ui/Pill'
 import { Choice } from '../components/ui/Choice'
 import { TextField } from '../components/ui/TextField'
-import { Todo } from '../components/ui/Todo'
+import { Cite } from '../components/ui/Cite'
 import { LevelTicket } from '../components/ui/LevelTicket'
 import { Landscape } from '../components/scenery/Landscape'
 import { Grain } from '../components/scenery/Grain'
@@ -100,11 +100,7 @@ export function Models() {
               <p className="text-sm font-semibold text-leaf-ink">{p.tag}</p>
               <h2 className="text-2xl font-semibold">{p.name}</h2>
               <p className="text-[0.98rem] text-ink-soft">{p.summary}</p>
-              {p.sources.length > 0 ? (
-                <p className="text-xs text-ink-faint">{p.sources.join(' · ')}</p>
-              ) : (
-                <Todo>{p.sourcesTodo}</Todo>
-              )}
+              <Cite sources={p.sources} className="text-xs" />
               <button
                 type="button"
                 aria-pressed={selected}

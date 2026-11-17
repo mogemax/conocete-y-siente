@@ -3,9 +3,8 @@ import { UI } from '../../content'
 import { SCENE_BY_MODULE } from '../../lib/scenery'
 import { Button } from '../ui/Button'
 import { Pill } from '../ui/Pill'
-import { Cloud } from '../scenery/Cloud'
 import { SceneryBand } from '../scenery/SceneryBand'
-import { DesktopBackdrop } from '../scenery/DesktopBackdrop'
+import { PageFrame } from './PageFrame'
 import { ProgressHeader } from './ProgressHeader'
 import { ResetLink } from './ResetLink'
 import { SidePanelSlot } from './SidePanel'
@@ -25,9 +24,7 @@ export function Shell({ step, fractionByModule, canBack, canNext, nextLabel, onB
   const [slot, setSlot] = useState(null)
   return (
     <SidePanelSlot value={slot}>
-      <div className="relative mx-auto flex min-h-dvh w-full max-w-xl flex-col overflow-x-clip px-5 pt-[max(1.25rem,env(safe-area-inset-top))] lg:my-10 lg:min-h-[calc(100dvh-5rem)] desk:h-[calc(100dvh-5rem)] lg:rounded-[2.5rem] lg:bg-paper lg:pt-7 lg:shadow-[0_30px_80px_-30px_oklch(0.3_0.06_125/0.55)]">
-        <DesktopBackdrop key={`fondo-${scene}`} scene={scene} />
-        <Cloud key={scene} scene={scene} width={150} className="drift absolute top-20 -right-8 opacity-90 lg:hidden" />
+      <PageFrame scene={scene} className="desk:h-[calc(100dvh-5rem)]">
         <ProgressHeader moduleId={step.module} fractionByModule={fractionByModule} />
 
         <main
@@ -61,7 +58,7 @@ export function Shell({ step, fractionByModule, canBack, canNext, nextLabel, onB
           <SupportNote />
           <ResetLink onReset={onReset} />
         </footer>
-      </div>
+      </PageFrame>
 
       {/* Fuera de la tarjeta (que recorta lo que se sale); alineado a su borde derecho. */}
       <aside

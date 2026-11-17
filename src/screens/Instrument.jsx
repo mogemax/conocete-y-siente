@@ -3,6 +3,7 @@ import { useAdvance } from '../flow/useAdvance'
 import { Heading } from '../components/ui/Heading'
 import { Pill } from '../components/ui/Pill'
 import { LevelTicket } from '../components/ui/LevelTicket'
+import { LevelPath } from '../components/blocks/LevelPath'
 import { Choice } from '../components/ui/Choice'
 import { Scale } from '../components/ui/Scale'
 import { LEVEL_TONE } from '../components/ui/tones'
@@ -99,6 +100,7 @@ export function ResultStep({ phase }) {
           <p className="text-ink">{level.card}</p>
         </LevelTicket>
       )}
+      {level && phase === 'pre' && <LevelPath current={level.n} />}
       <dl className="grid grid-cols-2 gap-x-6 gap-y-1">
         <dt className="text-sm text-ink-soft">{t.statements}</dt>
         <dt className="text-sm text-ink-soft">{t.situations}</dt>

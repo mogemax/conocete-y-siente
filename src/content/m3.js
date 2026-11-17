@@ -20,6 +20,7 @@ export const M3 = {
       key: 'gusta',
       title: 'Lo que me gusta y se me da bien',
       hint: 'Nathaniel Branden decía que reconocer lo que vales es la base de una autoestima sana. Vale todo: series, deportes, cocinar, escuchar.',
+      source: 'Branden, 1994',
     },
     {
       key: 'comodo',

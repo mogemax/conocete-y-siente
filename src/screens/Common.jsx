@@ -1,6 +1,7 @@
 import { useStore } from '../state/store'
 import { Heading } from '../components/ui/Heading'
 import { TextField } from '../components/ui/TextField'
+import { Cite } from '../components/ui/Cite'
 import { ModuleNumerals } from '../components/scenery/ModuleNumerals'
 import { MODULES, UI } from '../content'
 
@@ -17,13 +18,14 @@ export function ModuleIntro({ module, title, body }) {
 }
 
 /** Pantalla con un campo de texto ligado a una ruta del estado. */
-export function FieldScreen({ eyebrow, title, hint, placeholder, path, rows = 5 }) {
+export function FieldScreen({ eyebrow, title, hint, source, placeholder, path, rows = 5 }) {
   const { state, set } = useStore()
   const value = path.reduce((obj, k) => obj?.[k], state) ?? ''
   return (
     <>
       <Heading eyebrow={eyebrow} title={title} />
       <TextField label={null} hint={hint} placeholder={placeholder} value={value} onChange={(v) => set(path, v)} rows={rows} aria-label={title} />
+      <Cite sources={source} className="-mt-4" />
     </>
   )
 }

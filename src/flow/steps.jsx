@@ -7,7 +7,7 @@
 import { M1, M2, M3, M4, M5, STATEMENTS, MEASUREMENT_SITUATIONS } from '../content'
 import { FieldScreen, ModuleIntro } from '../screens/Common'
 import { plainText } from '../components/ui/Accent'
-import { Welcome, Consent, Agreements, Checkin } from '../screens/M1'
+import { Consent, Agreements, Checkin } from '../screens/M1'
 import { LevelStep, StatementStep, SituationStep, ResultStep } from '../screens/Instrument'
 import { Lesson, Video, QuizStep } from '../screens/M2'
 import { Values, Strengthen, Closing } from '../screens/M3'
@@ -48,7 +48,6 @@ function instrumentSteps(module, phase, prefix) {
 
 export const STEPS = [
   // ── Módulo 1 · Enganche ──
-  { id: 'bienvenida', module: 'm1', scenery: 'hero', nextLabel: M1.welcome.cta, render: () => <Welcome /> },
   {
     id: 'consentimiento',
     module: 'm1',
@@ -82,7 +81,13 @@ export const STEPS = [
     module: 'm3',
     isEmpty: (s) => blank(s.map[field.key]),
     render: () => (
-      <FieldScreen eyebrow={`${plainText(M3.intro.title)} · ${i + 1} de ${M3.map.length}`} title={field.title} hint={field.hint} path={['map', field.key]} />
+      <FieldScreen
+        eyebrow={`${plainText(M3.intro.title)} · ${i + 1} de ${M3.map.length}`}
+        title={field.title}
+        hint={field.hint}
+        source={field.source}
+        path={['map', field.key]}
+      />
     ),
   })),
   { id: 'm3-valores', module: 'm3', isEmpty: (s) => !s.values.length && blank(s.valueOther), render: () => <Values /> },
@@ -138,7 +143,7 @@ export const STEPS = [
     isEmpty: (s) => !s.sent.opinion,
     render: ({ next }) => <Survey next={next} />,
   },
-  { id: 'gracias', module: 'm5', final: true, scenery: 'hero', render: ({ goto }) => <Thanks goto={goto} /> },
+  { id: 'gracias', module: 'm5', final: true, scenery: 'hero', render: () => <Thanks /> },
 ]
 
 export const indexOfStep = (id) => STEPS.findIndex((s) => s.id === id)

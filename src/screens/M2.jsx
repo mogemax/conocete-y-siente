@@ -4,6 +4,7 @@ import { Pill } from '../components/ui/Pill'
 import { SidePanel } from '../components/layout/SidePanel'
 import { Choice } from '../components/ui/Choice'
 import { Todo } from '../components/ui/Todo'
+import { Cite } from '../components/ui/Cite'
 import { SwipeCards } from '../components/blocks/SwipeCards'
 import { M2 } from '../content'
 
@@ -23,7 +24,7 @@ export function Lesson() {
             </span>
             <h2 className="text-2xl font-semibold">{card.title}</h2>
             <p className="text-ink-soft">{card.body}</p>
-            {card.source && <p className="mt-auto text-sm text-ink-faint">{card.source}</p>}
+            <Cite sources={card.source} className="mt-auto" />
           </article>
         )}
       />
@@ -68,6 +69,7 @@ export function QuizStep({ index }) {
       <h1 id={q.id} className="text-[1.6rem] font-semibold">
         {q.question}
       </h1>
+      <Cite sources={q.source} className="-mt-4" />
       <Choice
         labelledBy={q.id}
         disabled={answered}

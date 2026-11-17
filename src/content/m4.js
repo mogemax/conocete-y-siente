@@ -126,9 +126,8 @@ export const M4 = {
         summary:
           'Pasó de actriz juvenil a estrella pop casi de la noche a la mañana, con mucha presión y críticas que minimizaban lo que sentía por ser adolescente. En lugar de esconder sus emociones, buscó terapia desde joven y las convirtió en canciones honestas.',
         question: '¿Qué emoción tuya te cuesta reconocer o decir en voz alta?',
-        // TODO(equipo): pegar fuentes verificables (APA) de estas afirmaciones.
-        sources: [],
-        sourcesTodo: 'Fuente: que va a terapia desde los 16 años (entrevista) y sus premios Grammy.',
+        // Terapia desde los 16: entrevista en CBS Sunday Morning (ver content/references.js).
+        sources: ['Smith, 2021'],
       },
       {
         id: 'zendaya',
@@ -137,8 +136,8 @@ export const M4 = {
         summary:
           'A los 18 años le ofrecieron protagonizar una nueva serie de Disney. En vez de aceptar todo por miedo, tuvo claro quién era y qué quería representar: pidió ser coproductora, cambiar el nombre del programa y que la familia protagonista fuera afrodescendiente.',
         question: '¿En qué situación te gustaría poner un límite o decir lo que quieres?',
-        sources: [],
-        sourcesTodo: 'Fuente: sus condiciones para K.C. Undercover (coproducción, nombre, familia afrodescendiente).',
+        // The Ringer recopila sus declaraciones a Vogue y Glamour sobre K.C. Undercover.
+        sources: ['Zoladz, 2019'],
       },
       {
         id: 'wang',
@@ -147,8 +146,9 @@ export const M4 = {
         summary:
           'A los 19 años dejó el MIT para fundar Scale AI, una decisión que mucha gente a su alrededor veía como una locura. Para decidir, se alejó del ruido y revisó con honestidad sus capacidades y lo que creía. Lo llama su "brújula interna".',
         question: '¿Qué decisión te gustaría tomar escuchando más tu propia brújula?',
-        sources: [],
-        sourcesTodo: 'Fuente: salida del MIT, fundación de Scale AI y su idea de "brújula interna".',
+        // Forbes respalda la salida del MIT y la fundación de Scale AI a los 19.
+        // TODO(equipo): la frase "brújula interna" no se encontró en una fuente; resúmela si no aparece.
+        sources: ['Li, 2019'],
       },
     ],
   },

@@ -7,7 +7,9 @@ import { TextField } from '../components/ui/TextField'
 import { Todo } from '../components/ui/Todo'
 import { LevelTicket } from '../components/ui/LevelTicket'
 import { BeforeAfterChart } from '../components/blocks/BeforeAfterChart'
-import { M5, PLAN_SUGGESTIONS, levelByN } from '../content'
+import { LevelPath } from '../components/blocks/LevelPath'
+import { openPage } from '../flow/pages'
+import { M5, PLAN_SUGGESTIONS, REFERENCES, levelByN } from '../content'
 import { summarize, trend } from '../lib/scoring'
 import { copyText } from '../lib/clipboard'
 import { renderCertificate } from '../lib/certificate'
@@ -81,6 +83,7 @@ export function Plan() {
       <LevelTicket label={t.tipTitle} n={level.n} name={level.name}>
         <p className="font-semibold text-ink">{level.tip}</p>
       </LevelTicket>
+      <LevelPath current={level.n} />
       <ol className="flex flex-col gap-4">
         {plan.map((week, i) => (
           <li key={i}>
@@ -142,6 +145,9 @@ export function Resources() {
           </li>
         ))}
       </ul>
+      <Button variant="secondary" onClick={() => openPage('referencias')}>
+        {REFERENCES.seeAll}
+      </Button>
     </>
   )
 }
@@ -252,7 +258,7 @@ export function Survey({ next }) {
   )
 }
 
-export function Thanks({ goto }) {
+export function Thanks() {
   const t = M5.thanks
   return (
     <>
@@ -266,7 +272,7 @@ export function Thanks({ goto }) {
           </a>
         </section>
       )}
-      <Button variant="secondary" onClick={() => goto('bienvenida')}>
+      <Button variant="secondary" onClick={() => openPage('')}>
         {t.restart}
       </Button>
     </>

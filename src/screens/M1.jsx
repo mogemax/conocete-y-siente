@@ -1,43 +1,10 @@
-import { useState } from 'react'
 import { useStore } from '../state/store'
 import { Heading } from '../components/ui/Heading'
 import { Pill } from '../components/ui/Pill'
 import { Choice } from '../components/ui/Choice'
 import { TextField } from '../components/ui/TextField'
 import { EmotionWheel } from '../components/blocks/EmotionWheel'
-import { TestimonialList } from './M4'
-import { M1, M4 } from '../content'
-
-export function Welcome() {
-  const [readFirst, setReadFirst] = useState(false)
-  const t = M1.welcome
-  return (
-    <>
-      <Heading eyebrow={t.eyebrow} title={t.title} />
-      <div className="flex max-w-[60ch] flex-col gap-4 text-ink-soft">
-        {t.body.map((p) => (
-          <p key={p}>{p}</p>
-        ))}
-      </div>
-      <Pill tone="outline">{t.meta}</Pill>
-      <div className="flex flex-col gap-4">
-        <button
-          type="button"
-          aria-expanded={readFirst}
-          onClick={() => setReadFirst((v) => !v)}
-          className="w-fit text-left font-semibold text-accent underline decoration-accent/40 underline-offset-4"
-        >
-          {t.readFirst}
-        </button>
-        {readFirst && (
-          <div className="reveal">
-            <TestimonialList items={M4.testimonials.items} origin={M4.testimonials.origin} />
-          </div>
-        )}
-      </div>
-    </>
-  )
-}
+import { M1 } from '../content'
 
 export function Consent() {
   const { state, set } = useStore()

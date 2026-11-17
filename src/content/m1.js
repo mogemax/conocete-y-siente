@@ -1,18 +1,6 @@
 // Módulo 1 · Enganche (responsable: Esteban Amezcua)
 
 export const M1 = {
-  welcome: {
-    eyebrow: 'Conócete y siente',
-    title: 'Si sientes que todos ya tienen su grupo, no eres el *único.*',
-    body: [
-      'Empezar la uni cuando los grupitos ya se formaron cuesta, y le pasa a mucha más gente de la que crees.',
-      // Paráfrasis de la idea de Brené Brown (no es cita literal).
-      'La investigadora Brené Brown encontró que pertenecer empieza cuando nos dejamos ver tal como somos. Aquí vas a practicar justo eso, a tu ritmo.',
-    ],
-    meta: '5 módulos · unos 60 minutos · puedes hacerlo en 2 o 3 visitas',
-    cta: 'Empezar',
-    readFirst: '¿Prefieres leer primero a otros como tú?',
-  },
   consent: {
     title: 'Antes de *empezar*',
     body: 'Tus respuestas escritas se quedan en tu celular. Solo enviamos números anónimos (sin nombre) para mejorar la experiencia.',

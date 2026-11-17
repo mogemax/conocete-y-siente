@@ -3,11 +3,22 @@ import { useStore } from './state/store'
 import { Shell } from './components/layout/Shell'
 import { useNavigation, moduleFractions } from './flow/useNavigation'
 import { useAutoSubmit } from './flow/useAutoSubmit'
+import { openPage, usePage } from './flow/pages'
+import { Landing } from './screens/Landing'
+import { References } from './screens/References'
 
+/** Tres páginas según el hash: #/ (landing), #/referencias y los pasos del recorrido. */
 export default function App() {
+  const page = usePage()
+  useAutoSubmit()
+  if (page === 'landing') return <Landing />
+  if (page === 'referencias') return <References />
+  return <Flow />
+}
+
+function Flow() {
   const { state, reset } = useStore()
   const { index, step, next, back, goto } = useNavigation()
-  useAutoSubmit()
 
   const canNext = !step.required || step.required(state)
   const nextLabel = step.isEmpty?.(state) ? UI.skip : (step.nextLabel ?? UI.next)
@@ -23,7 +34,7 @@ export default function App() {
       onNext={next}
       onReset={() => {
         reset()
-        window.history.replaceState(null, '', '#/bienvenida')
+        openPage('')
       }}
     >
       {step.render({ next, goto })}

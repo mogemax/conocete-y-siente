@@ -1,8 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useStore } from '../state/store'
 import { STEPS, indexOfStep } from './steps'
-
-const stepFromHash = () => decodeURIComponent(window.location.hash.replace(/^#\/?/, ''))
+import { hashId as stepFromHash, pageOf } from './pages'
 
 /**
  * Navegación lineal entre pasos, sincronizada con el hash de la URL
@@ -48,6 +47,7 @@ export function useNavigation() {
   // URL → estado (botón atrás/adelante del navegador)
   useEffect(() => {
     const onPop = () => {
+      if (pageOf(stepFromHash()) !== 'flow') return // landing o referencias: las muestra App
       const target = indexOfStep(stepFromHash())
       if (target !== -1 && target <= state.furthest) set(['stepId'], STEPS[target].id)
       else window.history.replaceState(null, '', `#/${STEPS[index].id}`)

@@ -13,11 +13,11 @@ const BANDS = {
   meadow: { height: 'h-[10.5rem]', landscape: { mountains: false }, tiles: [] },
 }
 
-/** Paisaje al pie de la pantalla, a sangre, con grano y cuadros de vidrio. */
-export function SceneryBand({ kind, scene }) {
+/** Paisaje a sangre, con grano y cuadros de vidrio. overlap: deja que el dock flote sobre su parte baja. */
+export function SceneryBand({ kind, scene, overlap = true }) {
   const band = BANDS[kind]
   return (
-    <div aria-hidden className={`relative -mx-5 -mb-24 shrink-0 overflow-hidden lg:hidden ${band.height}`}>
+    <div aria-hidden className={`relative -mx-5 shrink-0 overflow-hidden lg:hidden ${overlap ? '-mb-24' : ''} ${band.height}`}>
       <Landscape scene={scene} {...band.landscape} className="absolute inset-0" />
       <Grain />
       <GlassTiles tiles={band.tiles} />
