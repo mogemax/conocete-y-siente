@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react'
 
 // Páginas fuera del recorrido. Cualquier otro hash (#/consentimiento, #/m2-intro…) es un paso del recorrido.
-const PAGES = { '': 'landing', referencias: 'referencias' }
+const PAGES = { '': 'inicio', camino: 'camino', historias: 'historias', nosotros: 'nosotros', referencias: 'referencias' }
 
 export const hashId = () => decodeURIComponent(window.location.hash.replace(/^#\/?/, ''))
 export const pageOf = (id) => PAGES[id] ?? 'flow'
@@ -15,8 +15,8 @@ function subscribe(onChange) {
   }
 }
 
-/** 'landing' | 'referencias' | 'flow', según el hash de la URL. */
-export const usePage = () => useSyncExternalStore(subscribe, () => pageOf(hashId()), () => 'landing')
+/** Página del sitio ('inicio', 'camino', …) o 'flow' para los pasos del recorrido, según el hash de la URL. */
+export const usePage = () => useSyncExternalStore(subscribe, () => pageOf(hashId()), () => 'inicio')
 
 /** Va a una página o paso (id del hash) recordando de dónde viene, para que "Volver" regrese ahí. */
 export function openPage(id) {

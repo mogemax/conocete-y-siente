@@ -3,6 +3,7 @@
 // - required: bloquea "Siguiente" hasta cumplirse y muestra la etiqueta "Necesaria para tu constancia".
 // - isEmpty: en pasos opcionales cambia el botón a "Saltar por ahora".
 // - scenery: 'hero' | 'valley' | 'meadow' pone el paisaje del módulo al pie (ver SceneryBand).
+// - intro: portada del módulo (número en primer plano). measure: medición o su resultado (sin números de fondo).
 
 import { M1, M2, M3, M4, M5, STATEMENTS, MEASUREMENT_SITUATIONS } from '../content'
 import { FieldScreen, ModuleIntro } from '../screens/Common'
@@ -21,24 +22,28 @@ function instrumentSteps(module, phase, prefix) {
   const m = (s) => s.measures[phase]
   return [
     {
+      measure: true,
       id: `${prefix}-nivel`,
       module,
       required: (s) => m(s).level != null,
       render: ({ next }) => <LevelStep phase={phase} next={next} />,
     },
     ...STATEMENTS.map((_, i) => ({
+      measure: true,
       id: `${prefix}-afirmacion-${i + 1}`,
       module,
       required: (s) => m(s).statements[i] != null,
       render: ({ next }) => <StatementStep phase={phase} index={i} next={next} />,
     })),
     ...MEASUREMENT_SITUATIONS.map((sit, i) => ({
+      measure: true,
       id: `${prefix}-situacion-${i + 1}`,
       module,
       required: (s) => m(s).situations[sit.id] != null,
       render: ({ next }) => <SituationStep phase={phase} index={i} next={next} />,
     })),
     {
+      measure: true,
       id: `${prefix}-resultado`,
       module,
       render: () => <ResultStep phase={phase} />,
@@ -48,6 +53,7 @@ function instrumentSteps(module, phase, prefix) {
 
 export const STEPS = [
   // ── Módulo 1 · Enganche ──
+  { id: 'm1-intro', module: 'm1', intro: true, scenery: 'valley', render: () => <ModuleIntro module="m1" {...M1.intro} /> },
   {
     id: 'consentimiento',
     module: 'm1',
@@ -64,7 +70,7 @@ export const STEPS = [
   ...instrumentSteps('m1', 'pre', 'antes'),
 
   // ── Módulo 2 · Qué es ──
-  { id: 'm2-intro', module: 'm2', scenery: 'valley', render: () => <ModuleIntro module="m2" {...M2.intro} /> },
+  { id: 'm2-intro', module: 'm2', intro: true, scenery: 'valley', render: () => <ModuleIntro module="m2" {...M2.intro} /> },
   { id: 'm2-leccion', module: 'm2', render: () => <Lesson /> },
   { id: 'm2-video', module: 'm2', render: () => <Video /> },
   ...M2.quiz.questions.map((q, i) => ({
@@ -75,7 +81,7 @@ export const STEPS = [
   })),
 
   // ── Módulo 3 · Identifícala ──
-  { id: 'm3-intro', module: 'm3', scenery: 'valley', render: () => <ModuleIntro module="m3" {...M3.intro} /> },
+  { id: 'm3-intro', module: 'm3', intro: true, scenery: 'valley', render: () => <ModuleIntro module="m3" {...M3.intro} /> },
   ...M3.map.map((field, i) => ({
     id: `m3-mapa-${i + 1}`,
     module: 'm3',
@@ -95,7 +101,7 @@ export const STEPS = [
   { id: 'm3-cierre', module: 'm3', render: () => <Closing /> },
 
   // ── Módulo 4 · Desarróllala jugando ──
-  { id: 'm4-intro', module: 'm4', scenery: 'valley', render: () => <ModuleIntro module="m4" {...M4.intro} /> },
+  { id: 'm4-intro', module: 'm4', intro: true, scenery: 'valley', render: () => <ModuleIntro module="m4" {...M4.intro} /> },
   ...M4.game.rounds.flatMap((round, r) =>
     ['a', 'b'].map((attempt) => ({
       id: `m4-juego-${r + 1}${attempt}`,
@@ -113,7 +119,7 @@ export const STEPS = [
   { id: 'm4-testimonios', module: 'm4', render: () => <Testimonials /> },
 
   // ── Módulo 5 · Mide y comprométete ──
-  { id: 'm5-intro', module: 'm5', scenery: 'valley', render: () => <ModuleIntro module="m5" {...M5.intro} /> },
+  { id: 'm5-intro', module: 'm5', intro: true, scenery: 'valley', render: () => <ModuleIntro module="m5" {...M5.intro} /> },
   ...instrumentSteps('m5', 'post', 'despues'),
   {
     id: 'm5-comparacion',

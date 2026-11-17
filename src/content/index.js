@@ -10,6 +10,7 @@ export { M4 } from './m4.js'
 export { M5 } from './m5.js'
 export { LANDING, LEVEL_PATH } from './landing.js'
 export { REFERENCES } from './references.js'
+export { SITE, CAMINO, HISTORIAS, NOSOTROS } from './site.js'
 
 export const MODULES = [
   { id: 'm1', n: 1, title: 'Enganche', minutes: 5 },

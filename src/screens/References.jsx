@@ -1,5 +1,5 @@
 import { leavePage } from '../flow/pages'
-import { PageFrame } from '../components/layout/PageFrame'
+import { SiteLayout } from '../components/site/SiteLayout'
 import { Accent } from '../components/ui/Accent'
 import { Button } from '../components/ui/Button'
 import { Heading } from '../components/ui/Heading'
@@ -9,11 +9,18 @@ import { REFERENCES } from '../content'
 export function References() {
   const t = REFERENCES
   return (
-    <PageFrame scene="atardecer">
-      <main className="screen-in flex flex-1 flex-col gap-7 pt-6 pb-12">
+    <SiteLayout current="referencias">
+      <div className="site-container flex max-w-3xl flex-col gap-7 py-12 lg:py-16">
         <Button variant="secondary" size="sm" onClick={leavePage} className="w-fit gap-1.5">
           <svg viewBox="0 0 20 20" className="size-4" aria-hidden>
-            <path d="M12.5 4.5L7 10l5.5 5.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M12.5 4.5L7 10l5.5 5.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
           {t.back}
         </Button>
@@ -25,7 +32,12 @@ export function References() {
               {r.url && (
                 <>
                   {' '}
-                  <a href={r.url} target="_blank" rel="noreferrer" className="break-all text-accent underline decoration-accent/30 underline-offset-2">
+                  <a
+                    href={r.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="break-all text-accent underline decoration-accent/30 underline-offset-2"
+                  >
                     {r.url}
                   </a>
                 </>
@@ -33,7 +45,7 @@ export function References() {
             </li>
           ))}
         </ol>
-      </main>
-    </PageFrame>
+      </div>
+    </SiteLayout>
   )
 }

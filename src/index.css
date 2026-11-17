@@ -1,8 +1,15 @@
 @import 'tailwindcss';
 
-/* Escritorio con altura suficiente: la tarjeta mide lo que la ventana y el dock + pie quedan fijos.
-   En ventanas bajas (laptops con poca altura útil) la página se desplaza como en celular. */
-@custom-variant desk (@media (width >= 64rem) and (height >= 46rem));
+/* Contenedor de las páginas del sitio */
+@utility site-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 72rem;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
+}
 
 @theme {
   /* Archivo con eje de ancho: expandida para títulos, normal para texto. */
@@ -47,6 +54,7 @@
 
 @layer base {
   html {
+    scroll-padding-block: 5rem 7rem; /* barra superior y dock/franja fijos */
     background: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-body);
@@ -56,7 +64,6 @@
   /* Sin fondo propio: el de html basta y deja ver el paisaje de escritorio (z negativo). */
   body {
     min-height: 100dvh;
-    display: flow-root; /* evita que el margen de la tarjeta (lg) colapse y sume scroll */
     font-size: 1.0625rem;
     line-height: 1.5;
   }
@@ -95,13 +102,18 @@
   }
 }
 
-/* Vidrio: una sola capa por pantalla, el contenido dentro queda sólido */
-.glass {
+/* Vidrio: una sola capa por pantalla, el contenido dentro queda sólido. Utilidad: admite lg:glass / max-lg:glass. */
+@utility glass {
   background: linear-gradient(180deg, rgb(255 255 255 / 0.8), rgb(255 255 255 / 0.6));
   -webkit-backdrop-filter: blur(18px) saturate(1.4);
   backdrop-filter: blur(18px) saturate(1.4);
   border: 1px solid rgb(255 255 255 / 0.75);
   box-shadow: 0 10px 40px -18px rgb(40 45 80 / 0.35);
+  @media (prefers-reduced-transparency: reduce) {
+    background: var(--color-card);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 .glass-tile {
   position: absolute;
@@ -115,7 +127,6 @@
   pointer-events: none;
 }
 @media (prefers-reduced-transparency: reduce) {
-  .glass,
   .glass-tile {
     background: var(--color-card);
     -webkit-backdrop-filter: none;
@@ -165,6 +176,16 @@
 .screen-in > :nth-child(4) { animation-delay: 150ms; }
 .screen-in > :nth-child(n + 5) { animation-delay: 200ms; }
 
+/* Portada de módulo en celular: la tira llega deslizándose desde el número anterior */
+@keyframes numerals-in {
+  from {
+    transform: translateX(0.65em);
+  }
+}
+.numerals-in {
+  animation: numerals-in 900ms var(--ease-out-quart) both;
+}
+
 /* Retro que aparece debajo de una elección */
 @keyframes reveal {
   from {
@@ -176,7 +197,7 @@
   animation: reveal 380ms var(--ease-out-expo) both;
 }
 
-/* Retro que sale de lado de la tarjeta (pantallas xl) */
+/* Retro que entra de lado */
 @keyframes side-in {
   from {
     opacity: 0;
@@ -206,6 +227,16 @@
 }
 .snap-row > * {
   scroll-snap-align: start;
+}
+/* En escritorio no se desliza: todas las tarjetas a la vista en rejilla (--cols columnas) */
+@media (width >= 64rem) {
+  .snap-row {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
+    overflow: visible;
+    padding-inline: 0;
+    margin-inline: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

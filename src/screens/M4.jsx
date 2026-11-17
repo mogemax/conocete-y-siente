@@ -1,3 +1,4 @@
+import { Split } from '../components/layout/Split'
 import { useStore } from '../state/store'
 import { Heading } from '../components/ui/Heading'
 import { Pill } from '../components/ui/Pill'
@@ -7,7 +8,6 @@ import { Cite } from '../components/ui/Cite'
 import { LevelTicket } from '../components/ui/LevelTicket'
 import { Landscape } from '../components/scenery/Landscape'
 import { Grain } from '../components/scenery/Grain'
-import { SidePanel } from '../components/layout/SidePanel'
 import { SwipeCards } from '../components/blocks/SwipeCards'
 import { M4, TARGET_LEVEL, levelByN } from '../content'
 
@@ -23,55 +23,58 @@ export function GameStep({ roundIndex, attempt }) {
   const options = order.map((i) => ({ key: sit.options[i].level, label: sit.options[i].text }))
 
   return (
-    <>
-      <div className="flex flex-col gap-3">
-        <Pill>{G.counter(roundIndex + 1, attempt)}</Pill>
-        {attempt === 'b' && <p className="font-semibold text-leaf-ink">{G.secondIntro}</p>}
-        <Pill tone="outline">{sit.place}</Pill>
-        <h1 id={`game-${round.id}${attempt}`} className="text-[1.75rem]">
-          {sit.text}
-        </h1>
-      </div>
-      <Choice
-        labelledBy={`game-${round.id}${attempt}`}
-        disabled={chosen != null}
-        options={options}
-        value={chosen}
-        onChange={(lvl) => set(['game', round.id, attempt], lvl)}
-      />
+    <Split
+      context={
+        <>
+          <div className="flex flex-col gap-3">
+            <Pill>{G.counter(roundIndex + 1, attempt)}</Pill>
+            {attempt === 'b' && <p className="font-semibold text-leaf-ink">{G.secondIntro}</p>}
+            <Pill tone="outline">{sit.place}</Pill>
+            <h1 id={`game-${round.id}${attempt}`} className="text-[1.75rem]">
+              {sit.text}
+            </h1>
+          </div>
+          <Choice
+            labelledBy={`game-${round.id}${attempt}`}
+            disabled={chosen != null}
+            options={options}
+            value={chosen}
+            onChange={(lvl) => set(['game', round.id, attempt], lvl)}
+          />
+        </>
+      }
+    >
       {chosen != null && <Feedback level={chosen} sit={sit} first={attempt === 'b' ? state.game[round.id]?.a : null} />}
-    </>
+    </Split>
   )
 }
 
 function Feedback({ level, sit, first }) {
   const info = levelByN(level)
   return (
-    <SidePanel>
-      <section role="status" className="reveal relative -mx-5 px-4 pt-32 pb-6 lg:mx-0 lg:p-0">
-        {/* En celular la retro va sobre su propio paisaje; en lg+ el paisaje ya está de fondo. */}
-        <div aria-hidden className="absolute inset-0 overflow-hidden rounded-t-[2rem] lg:hidden">
-          <Landscape scene="mediodia" lake={false} seed={7 + level * 5} className="absolute inset-0" />
-          <Grain />
-        </div>
-        <div className="glass relative flex flex-col gap-4 rounded-[1.9rem] p-5">
-          {first != null && <ProgressMessage first={first} second={level} />}
-          <LevelTicket label={G.chosenLevel} n={level} name={info.name}>
-            <p className="text-ink">{G.levelReading[level]}</p>
-          </LevelTicket>
-          <div className="flex flex-col gap-3 rounded-[1.25rem] bg-card p-4">
-            <div>
-              <p className="text-sm font-semibold text-leaf-ink">{G.level3Title}</p>
-              <p className="font-semibold">{sit.level3}</p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-ink-soft">{G.whyTitle}</p>
-              <p className="text-ink">{sit.why}</p>
-            </div>
+    <section role="status" className="reveal relative -mx-5 px-4 pt-32 pb-6 lg:mx-0 lg:p-0">
+      {/* En celular la retro va sobre su propio paisaje; en lg el paisaje ya está de fondo. */}
+      <div aria-hidden className="absolute inset-0 overflow-hidden rounded-t-[2rem] lg:hidden">
+        <Landscape scene="mediodia" lake={false} seed={7 + level * 5} className="absolute inset-0" />
+        <Grain />
+      </div>
+      <div className="glass relative flex flex-col gap-4 rounded-[1.9rem] p-5">
+        {first != null && <ProgressMessage first={first} second={level} />}
+        <LevelTicket label={G.chosenLevel} n={level} name={info.name}>
+          <p className="text-ink">{G.levelReading[level]}</p>
+        </LevelTicket>
+        <div className="flex flex-col gap-3 rounded-[1.25rem] bg-card p-4">
+          <div>
+            <p className="text-sm font-semibold text-leaf-ink">{G.level3Title}</p>
+            <p className="font-semibold">{sit.level3}</p>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-ink-soft">{G.whyTitle}</p>
+            <p className="text-ink">{sit.why}</p>
           </div>
         </div>
-      </section>
-    </SidePanel>
+      </div>
+    </section>
   )
 }
 
@@ -90,6 +93,7 @@ export function Models() {
       <Heading eyebrow={t.eyebrow} title={t.title} body={t.body} />
       <SwipeCards
         label="Personas modelo"
+        columns={3}
         items={t.people}
         renderItem={(p) => {
           const selected = p.id === state.model.id
@@ -116,7 +120,7 @@ export function Models() {
         }}
       />
       {chosen && (
-        <div className="reveal flex flex-col gap-3">
+        <div className="reveal flex flex-col gap-3 lg:max-w-[calc(50%-1.75rem)]">
           <p className="font-display text-lg font-semibold text-accent">{chosen.question}</p>
           <TextField
             label={t.learnTitle(chosen.name)}
@@ -147,10 +151,9 @@ export function TestimonialList({ items, origin }) {
 export function Testimonials() {
   const t = M4.testimonials
   return (
-    <>
-      <Heading eyebrow={t.eyebrow} title={t.title} />
+    <Split context={<Heading eyebrow={t.eyebrow} title={t.title} />}>
       <TestimonialList items={t.items} origin={t.origin} />
       <p className="font-semibold text-leaf-ink">{t.closing}</p>
-    </>
+    </Split>
   )
 }

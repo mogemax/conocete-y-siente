@@ -18,6 +18,7 @@ Todo el texto vive en `src/content/`, un archivo por módulo:
 | `instrument.js` | Las 6 afirmaciones y las 3 situaciones de medición (antes y después) |
 | `m1.js` … `m5.js` | Contenido de cada módulo |
 | `landing.js` | La landing de introducción y los textos del diagrama de niveles |
+| `site.js` | Barra superior, pie y las páginas El camino, Historias y Nosotros |
 | `references.js` | Lista de referencias en APA 7 (las citas cortas en pantalla deben coincidir con una entrada) |
 
 En los títulos, encierra una palabra entre asteriscos para ponerla en itálica oliva: `'Mira cómo *cambiaste*'`.
@@ -25,7 +26,7 @@ En los títulos, encierra una palabra entre asteriscos para ponerla en itálica 
 Busca `TODO(equipo)` para ver lo pendiente. Mientras `SHOW_TODOS = true` (en `ui.js`), los pendientes se ven en pantalla con la etiqueta "Pendiente".
 
 El **orden de las pantallas** está en `src/flow/steps.jsx`.
-La landing (`#/`) y las referencias (`#/referencias`) viven fuera del recorrido (`src/flow/pages.js`).
+Las páginas del sitio (`#/`, `#/camino`, `#/historias`, `#/nosotros`, `#/referencias`) viven fuera del recorrido: se registran en `src/flow/pages.js` y en `PAGES` de `src/App.jsx`.
 
 ## Correr en local
 

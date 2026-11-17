@@ -1,6 +1,6 @@
+import { Split } from '../components/layout/Split'
 import { useStore } from '../state/store'
 import { Heading } from '../components/ui/Heading'
-import { Pill } from '../components/ui/Pill'
 import { Choice } from '../components/ui/Choice'
 import { TextField } from '../components/ui/TextField'
 import { EmotionWheel } from '../components/blocks/EmotionWheel'
@@ -10,8 +10,7 @@ export function Consent() {
   const { state, set } = useStore()
   const t = M1.consent
   return (
-    <>
-      <Heading title={t.title} body={t.body} />
+    <Split context={<Heading title={t.title} body={t.body} />}>
       <label className="flex cursor-pointer items-start gap-4 rounded-2xl bg-card p-4 ring-1 ring-line has-[:checked]:ring-2 has-[:checked]:ring-accent">
         <input
           type="checkbox"
@@ -32,15 +31,14 @@ export function Consent() {
           onChange={(k) => set(['participant'], k)}
         />
       </div>
-    </>
+    </Split>
   )
 }
 
 export function Agreements() {
   const t = M1.agreements
   return (
-    <>
-      <Heading title={t.title} />
+    <Split context={<Heading title={t.title} />}>
       <ol className="flex flex-col gap-6">
         {t.items.map((item, i) => (
           <li key={item.title} className="grid grid-cols-[3rem_1fr] items-baseline gap-x-2">
@@ -54,7 +52,7 @@ export function Agreements() {
           </li>
         ))}
       </ol>
-    </>
+    </Split>
   )
 }
 
@@ -62,17 +60,22 @@ export function Checkin() {
   const { state, set } = useStore()
   const t = M1.checkin
   return (
-    <>
-      <Heading title={t.title} body={t.body} />
-      <EmotionWheel
-        emotions={t.emotions}
-        value={state.checkin.emotion}
-        onChange={(v) => set(['checkin', 'emotion'], v)}
-        otherLabel={t.otherLabel}
-        otherPlaceholder={t.otherPlaceholder}
-        otherValue={state.checkin.other}
-        onOtherChange={(v) => set(['checkin', 'other'], v)}
-      />
+    <Split
+      context={
+        <>
+          <Heading title={t.title} body={t.body} />
+          <EmotionWheel
+            emotions={t.emotions}
+            value={state.checkin.emotion}
+            onChange={(v) => set(['checkin', 'emotion'], v)}
+            otherLabel={t.otherLabel}
+            otherPlaceholder={t.otherPlaceholder}
+            otherValue={state.checkin.other}
+            onOtherChange={(v) => set(['checkin', 'other'], v)}
+          />
+        </>
+      }
+    >
       <TextField
         label={t.likeLabel}
         placeholder={t.likePlaceholder}
@@ -80,6 +83,6 @@ export function Checkin() {
         onChange={(v) => set(['checkin', 'like'], v)}
         rows={2}
       />
-    </>
+    </Split>
   )
 }

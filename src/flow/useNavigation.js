@@ -47,7 +47,7 @@ export function useNavigation() {
   // URL → estado (botón atrás/adelante del navegador)
   useEffect(() => {
     const onPop = () => {
-      if (pageOf(stepFromHash()) !== 'flow') return // landing o referencias: las muestra App
+      if (pageOf(stepFromHash()) !== 'flow') return // páginas del sitio: las muestra App
       const target = indexOfStep(stepFromHash())
       if (target !== -1 && target <= state.furthest) set(['stepId'], STEPS[target].id)
       else window.history.replaceState(null, '', `#/${STEPS[index].id}`)

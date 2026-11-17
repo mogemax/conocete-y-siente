@@ -1,6 +1,10 @@
 // Módulo 1 · Enganche (responsable: Esteban Amezcua)
 
 export const M1 = {
+  intro: {
+    title: 'Empecemos por *ti.*',
+    body: 'Unos acuerdos para cuidarnos entre todos, cómo te sientes hoy y una medición corta para saber en qué nivel empiezas.',
+  },
   consent: {
     title: 'Antes de *empezar*',
     body: 'Tus respuestas escritas se quedan en tu celular. Solo enviamos números anónimos (sin nombre) para mejorar la experiencia.',

@@ -1,19 +1,24 @@
+import { useEffect } from 'react'
 import { UI } from './content'
 import { useStore } from './state/store'
 import { Shell } from './components/layout/Shell'
 import { useNavigation, moduleFractions } from './flow/useNavigation'
+import { numeralsAt } from './flow/numerals'
 import { useAutoSubmit } from './flow/useAutoSubmit'
 import { openPage, usePage } from './flow/pages'
 import { Landing } from './screens/Landing'
+import { Camino, Historias, Nosotros } from './screens/SitePages'
 import { References } from './screens/References'
 
-/** Tres páginas según el hash: #/ (landing), #/referencias y los pasos del recorrido. */
+// Páginas del sitio (ver flow/pages.js); cualquier otro hash es un paso del recorrido.
+const PAGES = { inicio: Landing, camino: Camino, historias: Historias, nosotros: Nosotros, referencias: References }
+
 export default function App() {
   const page = usePage()
   useAutoSubmit()
-  if (page === 'landing') return <Landing />
-  if (page === 'referencias') return <References />
-  return <Flow />
+  useEffect(() => window.scrollTo({ top: 0 }), [page])
+  const Page = PAGES[page]
+  return Page ? <Page /> : <Flow />
 }
 
 function Flow() {
@@ -27,6 +32,7 @@ function Flow() {
     <Shell
       step={step}
       fractionByModule={moduleFractions(index)}
+      numerals={numeralsAt(index)}
       canBack={index > 0}
       canNext={canNext}
       nextLabel={nextLabel}

@@ -1,3 +1,4 @@
+import { Split } from '../components/layout/Split'
 import { useStore } from '../state/store'
 import { Heading } from '../components/ui/Heading'
 import { Chips } from '../components/ui/Chips'
@@ -8,8 +9,7 @@ export function Values() {
   const { state, set } = useStore()
   const t = M3.values
   return (
-    <>
-      <Heading title={t.title} body={t.body} />
+    <Split context={<Heading title={t.title} body={t.body} />}>
       <Chips options={t.options} value={state.values} onChange={(v) => set(['values'], v)} max={t.max} />
       <input
         value={state.valueOther}
@@ -19,7 +19,7 @@ export function Values() {
         maxLength={40}
         className="min-h-12 rounded-2xl bg-card px-4 ring-1 ring-line placeholder:text-ink-faint focus:ring-2 focus:ring-accent focus:outline-none"
       />
-    </>
+    </Split>
   )
 }
 
@@ -27,19 +27,17 @@ export function Strengthen() {
   const { state, set } = useStore()
   const t = M3.strengthen
   return (
-    <>
-      <Heading id="strengthen" title={t.title} body={t.body} />
+    <Split context={<Heading id="strengthen" title={t.title} body={t.body} />}>
       <Scale labelledBy="strengthen" value={state.strengthen} onChange={(n) => set(['strengthen'], n)} min={t.min} max={t.max} />
-    </>
+    </Split>
   )
 }
 
 export function Closing() {
   const t = M3.closing
   return (
-    <>
-      <blockquote className="font-display text-[2rem] leading-tight font-semibold text-accent">“{t.title}”</blockquote>
-      <p className="text-ink-soft">{t.body}</p>
-    </>
+    <Split context={<blockquote className="font-display text-[2rem] leading-tight font-semibold text-accent">“{t.title}”</blockquote>}>
+      <p className="text-ink-soft lg:pt-2 lg:text-lg">{t.body}</p>
+    </Split>
   )
 }

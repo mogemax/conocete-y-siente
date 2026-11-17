@@ -1,7 +1,7 @@
+import { Split } from '../components/layout/Split'
 import { useStore } from '../state/store'
 import { Heading } from '../components/ui/Heading'
 import { Pill } from '../components/ui/Pill'
-import { SidePanel } from '../components/layout/SidePanel'
 import { Choice } from '../components/ui/Choice'
 import { Todo } from '../components/ui/Todo'
 import { Cite } from '../components/ui/Cite'
@@ -35,8 +35,7 @@ export function Lesson() {
 export function Video() {
   const t = M2.video
   return (
-    <>
-      <Heading title={t.title} body={t.body} />
+    <Split context={<Heading title={t.title} body={t.body} />}>
       {t.url ? (
         <div className="aspect-video overflow-hidden rounded-3xl bg-ink">
           <iframe
@@ -51,7 +50,7 @@ export function Video() {
       ) : (
         <Todo>{t.urlTodo}</Todo>
       )}
-    </>
+    </Split>
   )
 }
 
@@ -62,31 +61,34 @@ export function QuizStep({ index }) {
   const answered = answer != null
   const right = answer === q.correct
   return (
-    <>
-      <Pill>
-        {M2.quiz.eyebrow} · {M2.quiz.counter(index + 1, M2.quiz.questions.length)}
-      </Pill>
-      <h1 id={q.id} className="text-[1.6rem] font-semibold">
-        {q.question}
-      </h1>
-      <Cite sources={q.source} className="-mt-4" />
-      <Choice
-        labelledBy={q.id}
-        disabled={answered}
-        options={q.options.map((label, i) => ({ key: i, label }))}
-        value={answer}
-        onChange={(i) => set(['quiz', q.id], i)}
-      />
+    <Split
+      context={
+        <>
+          <Pill>
+            {M2.quiz.eyebrow} · {M2.quiz.counter(index + 1, M2.quiz.questions.length)}
+          </Pill>
+          <h1 id={q.id} className="text-[1.6rem] font-semibold">
+            {q.question}
+          </h1>
+          <Cite sources={q.source} className="-mt-4" />
+          <Choice
+            labelledBy={q.id}
+            disabled={answered}
+            options={q.options.map((label, i) => ({ key: i, label }))}
+            value={answer}
+            onChange={(i) => set(['quiz', q.id], i)}
+          />
+        </>
+      }
+    >
       {answered && (
-        <SidePanel>
-          <p
-            role="status"
-            className={`reveal rounded-[1.25rem] p-4 font-semibold ${right ? 'bg-leaf-soft text-leaf-ink' : 'bg-l4 text-l4-ink'}`}
-          >
-            {right ? q.right : q.retry}
-          </p>
-        </SidePanel>
+        <p
+          role="status"
+          className={`side-in rounded-[1.25rem] p-4 font-semibold ${right ? 'bg-leaf-soft text-leaf-ink' : 'bg-l4 text-l4-ink'}`}
+        >
+          {right ? q.right : q.retry}
+        </p>
       )}
-    </>
+    </Split>
   )
 }

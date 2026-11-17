@@ -1,3 +1,4 @@
+import { Split } from '../components/layout/Split'
 import { useStore } from '../state/store'
 import { useAdvance } from '../flow/useAdvance'
 import { Heading } from '../components/ui/Heading'
@@ -17,8 +18,11 @@ export function LevelStep({ phase, next }) {
   const advance = useAdvance(next)
   const value = state.measures[phase].level
   return (
-    <>
-      <Heading id="lvl" eyebrow={INSTRUMENT.phases[phase].eyebrow} title={INSTRUMENT.levelStep.title} body={INSTRUMENT.levelStep.body} />
+    <Split
+      context={
+        <Heading id="lvl" eyebrow={INSTRUMENT.phases[phase].eyebrow} title={INSTRUMENT.levelStep.title} body={INSTRUMENT.levelStep.body} />
+      }
+    >
       <Choice
         labelledBy="lvl"
         options={levelOptions}
@@ -28,7 +32,7 @@ export function LevelStep({ phase, next }) {
           advance(value == null)
         }}
       />
-    </>
+    </Split>
   )
 }
 
@@ -37,14 +41,17 @@ export function StatementStep({ phase, index, next }) {
   const advance = useAdvance(next, 360)
   const value = state.measures[phase].statements[index]
   return (
-    <>
-      <Pill>
-        {INSTRUMENT.statementStep.counter(index + 1, STATEMENTS.length)}
-      </Pill>
-      <h1 id={`st-${index}`} className="text-[1.75rem] font-semibold">
-        {STATEMENTS[index]}
-      </h1>
-      <p className="-mt-3 text-ink-soft">{INSTRUMENT.statementStep.title}</p>
+    <Split
+      context={
+        <>
+          <Pill>{INSTRUMENT.statementStep.counter(index + 1, STATEMENTS.length)}</Pill>
+          <h1 id={`st-${index}`} className="text-[1.75rem] font-semibold">
+            {STATEMENTS[index]}
+          </h1>
+          <p className="-mt-3 text-ink-soft">{INSTRUMENT.statementStep.title}</p>
+        </>
+      }
+    >
       <Scale
         labelledBy={`st-${index}`}
         value={value}
@@ -55,7 +62,7 @@ export function StatementStep({ phase, index, next }) {
           advance(value == null)
         }}
       />
-    </>
+    </Split>
   )
 }
 
@@ -66,14 +73,17 @@ export function SituationStep({ phase, index, next }) {
   const value = state.measures[phase].situations[sit.id] ?? null
   const options = state.orders[phase][sit.id].map((i) => ({ key: sit.options[i].level, label: sit.options[i].text }))
   return (
-    <>
-      <Pill>
-        {INSTRUMENT.situationStep.counter(index + 1, MEASUREMENT_SITUATIONS.length)}
-      </Pill>
-      <h1 id={`sit-${sit.id}`} className="text-[1.6rem] font-semibold">
-        {sit.text}
-      </h1>
-      <p className="-mt-3 text-ink-soft">{INSTRUMENT.situationStep.body}</p>
+    <Split
+      context={
+        <>
+          <Pill>{INSTRUMENT.situationStep.counter(index + 1, MEASUREMENT_SITUATIONS.length)}</Pill>
+          <h1 id={`sit-${sit.id}`} className="text-[1.6rem] font-semibold">
+            {sit.text}
+          </h1>
+          <p className="-mt-3 text-ink-soft">{INSTRUMENT.situationStep.body}</p>
+        </>
+      }
+    >
       <Choice
         labelledBy={`sit-${sit.id}`}
         options={options}
@@ -83,7 +93,7 @@ export function SituationStep({ phase, index, next }) {
           advance(value == null)
         }}
       />
-    </>
+    </Split>
   )
 }
 
@@ -93,13 +103,18 @@ export function ResultStep({ phase }) {
   const level = levelByN(s.level)
   const t = INSTRUMENT.result
   return (
-    <>
-      <Heading eyebrow={INSTRUMENT.phases[phase].eyebrow} title={INSTRUMENT.phases[phase].resultTitle} />
-      {level && (
-        <LevelTicket label={t.level} n={level.n} name={level.name}>
-          <p className="text-ink">{level.card}</p>
-        </LevelTicket>
-      )}
+    <Split
+      context={
+        <>
+          <Heading eyebrow={INSTRUMENT.phases[phase].eyebrow} title={INSTRUMENT.phases[phase].resultTitle} />
+          {level && (
+            <LevelTicket label={t.level} n={level.n} name={level.name}>
+              <p className="text-ink">{level.card}</p>
+            </LevelTicket>
+          )}
+        </>
+      }
+    >
       {level && phase === 'pre' && <LevelPath current={level.n} />}
       <dl className="grid grid-cols-2 gap-x-6 gap-y-1">
         <dt className="text-sm text-ink-soft">{t.statements}</dt>
@@ -114,6 +129,6 @@ export function ResultStep({ phase }) {
         </dd>
       </dl>
       <p className="text-ink-soft">{phase === 'pre' ? t.preNote : t.postNote}</p>
-    </>
+    </Split>
   )
 }

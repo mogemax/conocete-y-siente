@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 
-/** Fila de tarjetas con scroll-snap nativo e indicador de posición. */
-export function SwipeCards({ items, renderItem, hint, label }) {
+/** Fila de tarjetas con scroll-snap nativo e indicador de posición. En lg: rejilla de `columns` columnas, sin deslizar. */
+export function SwipeCards({ items, renderItem, hint, label, columns = 2 }) {
   const rowRef = useRef(null)
   const [active, setActive] = useState(0)
 
@@ -20,14 +20,22 @@ export function SwipeCards({ items, renderItem, hint, label }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div ref={rowRef} onScroll={onScroll} className="snap-row" role="region" aria-label={label} tabIndex={0}>
+      <div
+        ref={rowRef}
+        onScroll={onScroll}
+        className="snap-row"
+        style={{ '--cols': columns }}
+        role="region"
+        aria-label={label}
+        tabIndex={0}
+      >
         {items.map((item, i) => (
           <div key={i} aria-roledescription="tarjeta" aria-label={`${i + 1} de ${items.length}`}>
             {renderItem(item, i)}
           </div>
         ))}
       </div>
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-4 lg:hidden">
         {hint && <p className="text-sm text-ink-soft">{hint}</p>}
         <div className="ml-auto flex gap-1">
           {items.map((_, i) => (

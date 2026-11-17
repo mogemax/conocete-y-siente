@@ -5,9 +5,7 @@ export const LANDING = {
     eyebrow: 'Una experiencia de 60 minutos, a tu ritmo',
     title: 'Conócete y *siente.*',
     body: 'Si sientes que todos ya tienen su grupo, no eres el único. Aquí vas a entender qué sientes, qué te gusta y cómo compartirlo, para que conocer gente cueste un poco menos.',
-    start: 'Empezar',
-    resume: 'Continuar donde te quedaste',
-    readFirst: '¿Prefieres leer primero a otros como tú?',
+    secondary: 'Conoce el camino',
   },
   purpose: {
     title: 'Conocerte es el primer *paso.*',
@@ -17,6 +15,10 @@ export const LANDING = {
   path: {
     title: 'Es un proceso, no un *examen.*',
     body: 'Nadie pasa de callarse a hacer planes en un día. Hay cinco niveles; la mayoría empieza en el 2. La meta de esta experiencia es llegar al 3: contar algo tuyo en un grupo pequeño y hacer una pregunta.',
+    cta: 'Ver el camino completo',
+  },
+  testimonials: {
+    title: 'A otros también les *pasó.*',
   },
   modules: {
     title: 'Cinco módulos, unos 60 *minutos.*',
@@ -38,10 +40,9 @@ export const LANDING = {
     title: 'Lo que escribes es *tuyo.*',
     body: 'Tus respuestas escritas se quedan en tu celular. Solo enviamos números anónimos, sin nombre, para mejorar la experiencia.',
   },
-  footer: {
-    course: 'Desarrollo de Competencias Personales · Universidad Panamericana',
-    team: 'Equipo: Esteban Amezcua, Nadia Villegas y Esteban Montes',
-    references: 'Referencias',
+  closing: {
+    title: 'Empieza cuando *quieras.*',
+    body: 'Son unos 60 minutos y puedes pausar cuando lo necesites; tu avance se guarda solo.',
   },
 }
 
