@@ -25,7 +25,9 @@ const StoreContext = createContext(null)
 export function StoreProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, null, () => loadState() ?? createInitialState())
 
-  useEffect(() => saveState(state), [state])
+  useEffect(() => {
+    saveState(state)
+  }, [state])
 
   const api = useMemo(
     () => ({

@@ -28,6 +28,14 @@ export const SUPPORT = {
   close: 'Cerrar',
 }
 
+// Pantalla de respaldo si algo falla al dibujar la app (ver ErrorBoundary). Tu avance sigue guardado.
+export const CRASH = {
+  title: 'Algo se atoró',
+  body: 'Tu avance sigue guardado en este dispositivo. Recarga para continuar donde te quedaste.',
+  reload: 'Recargar',
+  home: 'Ir al inicio',
+}
+
 export const RESET = {
   link: 'Borrar mis respuestas',
   confirm: '¿Seguro? Se borra todo tu avance en este dispositivo.',

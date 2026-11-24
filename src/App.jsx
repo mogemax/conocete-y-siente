@@ -16,7 +16,10 @@ const PAGES = { inicio: Landing, camino: Camino, historias: Historias, nosotros:
 export default function App() {
   const page = usePage()
   useAutoSubmit()
-  useEffect(() => window.scrollTo({ top: 0 }), [page])
+  // Con llaves: scrollTo devuelve una Promise en Chrome reciente y React la tomaría como limpieza del efecto.
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [page])
   const Page = PAGES[page]
   return Page ? <Page /> : <Flow />
 }

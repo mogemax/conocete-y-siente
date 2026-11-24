@@ -1,6 +1,6 @@
 // Punto único de entrada al contenido. Para editar textos, abre el archivo del módulo correspondiente.
 
-export { SHOW_TODOS, UI, SUPPORT, RESET } from './ui.js'
+export { SHOW_TODOS, UI, SUPPORT, RESET, CRASH } from './ui.js'
 export { LEVELS, TARGET_LEVEL, levelByN, PLAN_SUGGESTIONS } from './levels.js'
 export { INSTRUMENT, SCALE, STATEMENTS, MEASUREMENT_SITUATIONS } from './instrument.js'
 export { M1 } from './m1.js'
